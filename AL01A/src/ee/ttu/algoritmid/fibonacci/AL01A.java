@@ -6,7 +6,15 @@ public class AL01A {
      * @return The n-th number in Fibonacci series.
      */
     public String iterativeF(int n) {
-        // TODO 1
-        return "";
+
+        int a = 1, b = 1, c;
+        for (int i = 3; i <= n; i++) {
+            c = a + b;
+            a = b;
+            b = c;
+        }
+        String s=String.valueOf(a);
+        return s;
+
     }
 }
