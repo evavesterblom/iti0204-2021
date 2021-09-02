@@ -1,4 +1,5 @@
 package ee.ttu.algoritmid.fibonacci;
+
 public class AL01A {
     /**
      * Compute the Fibonacci sequence number.
@@ -17,4 +18,8 @@ public class AL01A {
         return s;
 
     }
+
 }
+
+
+
