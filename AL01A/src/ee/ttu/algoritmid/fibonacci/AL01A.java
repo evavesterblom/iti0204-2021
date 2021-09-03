@@ -18,13 +18,6 @@ public class AL01A {
         BigInteger B = BigInteger.ONE;
         BigInteger C;
 
-        //https://stackoverflow.com/questions/3024186/java-how-for-loop-work-in-the-case-of-biginteger
-        //  int a = 1, b = 1, c;
-        //  for (int i = 3; i <= n; i++) {
-        //         c = a + b;
-        //         a = b;
-        //         b = c;
-        //        }
         for (BigInteger counter = BigInteger.valueOf(3);
                 counter.compareTo(nn) <= 0;
                 counter = counter.add(BigInteger.ONE)){
