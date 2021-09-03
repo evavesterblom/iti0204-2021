@@ -1,22 +1,42 @@
 package ee.ttu.algoritmid.fibonacci;
 
+import java.math.BigInteger;
+
 public class AL01A {
     /**
      * Compute the Fibonacci sequence number.
      * @param n The number of the sequence to compute.
      * @return The n-th number in Fibonacci series.
      */
-    public String iterativeF(int n) {
+    public String iterativeF(BigInteger n) {
 
-        if (n == 0) return "0";
-        int a = 1, b = 1, c;
-        for (int i = 3; i <= n; i++) {
-            c = a + b;
-            a = b;
-            b = c;
+        if (n.equals(BigInteger.ZERO)) return "0";
+
+        BigInteger A = BigInteger.ONE;
+        BigInteger B = BigInteger.ONE;
+        BigInteger C;
+
+        //https://stackoverflow.com/questions/3024186/java-how-for-loop-work-in-the-case-of-biginteger
+        //  int a = 1, b = 1, c;
+        //  for (int i = 3; i <= n; i++) {
+        //         c = a + b;
+        //         a = b;
+        //         b = c;
+        //        }
+        for (BigInteger counter = BigInteger.valueOf(3);
+                counter.compareTo(n) <= 0;
+                counter = counter.add(BigInteger.ONE)){
+
+                C = A.add(B);
+                A = B;
+                B = C;
         }
-        String s = String.valueOf(a);
-        return s;
+        return String.valueOf(B);
+
+        // fib(3)
+        //0 1 1 2 3 5 8
+       // a=1 b=1 c   ---- 3 c=1+1
+
 
     }
 
