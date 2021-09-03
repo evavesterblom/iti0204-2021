@@ -8,9 +8,11 @@ public class AL01A {
      * @param n The number of the sequence to compute.
      * @return The n-th number in Fibonacci series.
      */
-    public String iterativeF(BigInteger n) {
+    public String iterativeF(int n) {
 
-        if (n.equals(BigInteger.ZERO)) return "0";
+        BigInteger nn = BigInteger.valueOf(n);
+
+        if (nn.equals(BigInteger.ZERO)) return "0";
 
         BigInteger A = BigInteger.ONE;
         BigInteger B = BigInteger.ONE;
@@ -24,7 +26,7 @@ public class AL01A {
         //         b = c;
         //        }
         for (BigInteger counter = BigInteger.valueOf(3);
-                counter.compareTo(n) <= 0;
+                counter.compareTo(nn) <= 0;
                 counter = counter.add(BigInteger.ONE)){
 
                 C = A.add(B);
