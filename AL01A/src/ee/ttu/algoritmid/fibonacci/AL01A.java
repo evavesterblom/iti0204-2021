@@ -8,7 +8,7 @@ public class AL01A {
      * @param n The number of the sequence to compute.
      * @return The n-th number in Fibonacci series.
      */
-    public String iterativeFBig(BigInteger n) {
+    public String iterativeF(BigInteger n) {
 
         if (n.equals(BigInteger.ZERO)) return "0";
 
@@ -39,7 +39,7 @@ public class AL01A {
      * @param n The number of the sequence to compute.
      * @return The n-th number in Fibonacci series.
      */
-    public String iterativeF(int n) {
+    public String iterativeFun(int n) {
 
         if (n == 0) return "0";
 
