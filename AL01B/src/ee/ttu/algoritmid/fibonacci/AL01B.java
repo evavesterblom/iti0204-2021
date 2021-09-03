@@ -22,7 +22,7 @@ public class AL01B {
         // x = 21.47 * 1.618 ˇ(n-45) sekundit - kui on sisend 45.
         // x = baseTime * expBase ˇ(n-exponent)
 
-        int base = 42;
+        int base = 43;
         double expBase = 1.618;
 
         Instant before = Instant.now();
