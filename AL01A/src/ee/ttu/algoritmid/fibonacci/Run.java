@@ -4,9 +4,9 @@ import java.math.BigInteger;
 
 public class Run {
     public static void main(String[] args) {
-        AL01B a = new AL01B();
+        //AL01B a = new AL01B();
 
-        System.out.println("Time: " + a.timeToComputeRecursiveFibonacci(69));
+        //System.out.println("Time: " + a.timeToComputeRecursiveFibonacci(69));
 
 
         //for(int i=0; i<=15; i++) {
