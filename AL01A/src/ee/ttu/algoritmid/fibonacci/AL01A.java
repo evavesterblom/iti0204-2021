@@ -8,7 +8,7 @@ public class AL01A {
      * @param n The number of the sequence to compute.
      * @return The n-th number in Fibonacci series.
      */
-    public String iterativeF(BigInteger n) {
+    public String iterativeFBig(BigInteger n) {
 
         if (n.equals(BigInteger.ZERO)) return "0";
 
@@ -32,12 +32,28 @@ public class AL01A {
                 B = C;
         }
         return String.valueOf(B);
+    }
 
-        // fib(3)
-        //0 1 1 2 3 5 8
-       // a=1 b=1 c   ---- 3 c=1+1
+    /**
+     * Compute the Fibonacci sequence number.
+     * @param n The number of the sequence to compute.
+     * @return The n-th number in Fibonacci series.
+     */
+    public String iterativeF(int n) {
 
+        if (n == 0) return "0";
 
+        int a = 1;
+        int b = 1;
+        int c;
+
+        for (int i = 3; i <= n; i++){
+
+            c = a + b;
+            a = b;
+            b = c;
+        }
+        return String.valueOf(b);
     }
 
 }
