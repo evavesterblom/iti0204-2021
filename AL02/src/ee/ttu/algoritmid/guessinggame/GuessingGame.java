@@ -19,16 +19,12 @@ public class GuessingGame {
 
         Arrays.sort(fruitArray,(Comparator.comparingInt(Fruit::getWeight)));
 
-        //1 3 5 7 11 15 18 20 21
-        //0 1 2 3 4  5  6  7  8
-
         var low = 0;
         var high = fruitArray.length;
 
+        var counter = 0;
 
-        var found = false;
-
-        while (!found){
+        while (counter < fruitArray.length){
             var mid = (low + high) / 2;
             var guess = oracle.isIt(fruitArray[mid]);
             if (guess == "heavier") {
@@ -40,6 +36,7 @@ public class GuessingGame {
             else if(guess == "correct!"){
                 return fruitArray[mid].getName();
             }
+            counter++;
         }
 
         return "";
