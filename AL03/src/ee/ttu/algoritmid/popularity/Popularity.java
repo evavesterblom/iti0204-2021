@@ -34,7 +34,9 @@ public class Popularity {
      * @return the number of occurrennces of the point
      */
     int pointPopularity(Integer x,Integer y) {
-        return pointPopularityMap.get(new Point(x, y));
+        Point point = new Point(x, y);
+        if (!pointPopularityMap.containsKey(point)) return 0;
+        return pointPopularityMap.get(point);
     }
 
 
