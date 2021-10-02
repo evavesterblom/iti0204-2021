@@ -9,7 +9,7 @@ public class Popularity {
     private HashMap<Point, Integer> pointPopularityMap;
 
     public Popularity(int maxCoordinates) {
-        pointPopularityMap = new HashMap<();
+        pointPopularityMap = new HashMap<>();
     }
 
     /**
