@@ -19,15 +19,17 @@ public class SubtreeDifference {
         var left = rootNode.getLeft();
         if (left != null){
             calculateDifferences(left);
-            rootNode.setDifferenceOfLeftAndRight(left.getSumOfAllChildren() + left.getValue());
-            rootNode.setSumOfAllChildren(left.getSumOfAllChildren() + left.getValue());
+            var leftSum = left.getSumOfAllChildren() + left.getValue();
+            rootNode.setDifferenceOfLeftAndRight(leftSum);
+            rootNode.setSumOfAllChildren(leftSum);
         }
 
         var right = rootNode.getRight();
         if (right != null){
             calculateDifferences(right);
-            rootNode.setDifferenceOfLeftAndRight(rootNode.getDifferenceOfLeftAndRight() - (right.getSumOfAllChildren() + right.getValue()));
-            rootNode.setSumOfAllChildren(rootNode.getSumOfAllChildren() + right.getSumOfAllChildren() + right.getValue());
+            var rightSum = (right.getSumOfAllChildren() + right.getValue());
+            rootNode.setDifferenceOfLeftAndRight(rootNode.getDifferenceOfLeftAndRight() - rightSum);
+            rootNode.setSumOfAllChildren(rootNode.getSumOfAllChildren() + rightSum);
         }
 
         return rootNode;
