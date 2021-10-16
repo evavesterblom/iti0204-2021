@@ -9,7 +9,6 @@ public class SubtreeDifference {
      */
     public Node calculateDifferences(Node rootNode) {
 
-        // TODO: your logic goes here
 
         /*Execute the following three operations in a certain order>
         N: Visit the current node.
