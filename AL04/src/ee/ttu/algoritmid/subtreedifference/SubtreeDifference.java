@@ -16,28 +16,20 @@ public class SubtreeDifference {
         L: Recursively traverse the current node's left subtree.
         R: Recursively traverse the current node's right subtree*/
 
-        var sumOfAllChildren = 0L;
-        var leftRightDifference = 0L;
-
         var left = rootNode.getLeft();
         if (left != null){
             calculateDifferences(left);
-            sumOfAllChildren += left.getSumOfAllChildren() + left.getValue();
-            leftRightDifference += left.getSumOfAllChildren() + left.getValue();
-            //rootNode.setDifferenceOfLeftAndRight(left.getSumOfAllChildren() + left.getValue());
-            //rootNode.setSumOfAllChildren(left.getSumOfAllChildren() + left.getValue());
+            rootNode.setDifferenceOfLeftAndRight(left.getSumOfAllChildren() + left.getValue());
+            rootNode.setSumOfAllChildren(left.getSumOfAllChildren() + left.getValue());
         }
 
         var right = rootNode.getRight();
         if (right != null){
             calculateDifferences(right);
-            sumOfAllChildren += right.getSumOfAllChildren() + right.getValue();
-            leftRightDifference -= right.getSumOfAllChildren() + right.getValue();
-            //rootNode.setDifferenceOfLeftAndRight(rootNode.getDifferenceOfLeftAndRight() - (right.getSumOfAllChildren() + right.getValue()));
-            //rootNode.setSumOfAllChildren(rootNode.getSumOfAllChildren() + right.getSumOfAllChildren() + right.getValue());
+            rootNode.setDifferenceOfLeftAndRight(rootNode.getDifferenceOfLeftAndRight() - (right.getSumOfAllChildren() + right.getValue()));
+            rootNode.setSumOfAllChildren(rootNode.getSumOfAllChildren() + right.getSumOfAllChildren() + right.getValue());
         }
-        rootNode.setSumOfAllChildren(sumOfAllChildren);
-        rootNode.setDifferenceOfLeftAndRight(leftRightDifference);
+
         return rootNode;
     }
 
