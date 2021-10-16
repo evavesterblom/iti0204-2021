@@ -35,6 +35,7 @@ public class Popularity {
      */
     int pointPopularity(Integer x,Integer y) {
         Point point = new Point(x, y);
+        //pointPopularity(null, null);
         if (!pointPopularityMap.containsKey(point)) return 0;
         return pointPopularityMap.get(point);
     }
