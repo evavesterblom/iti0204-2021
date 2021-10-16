@@ -10,29 +10,34 @@ public class SubtreeDifference {
     public Node calculateDifferences(Node rootNode) {
 
         // TODO: your logic goes here
-        // for each node
-        // sum child nodes
-        // difference of child nodes
-
 
         /*Execute the following three operations in a certain order>
         N: Visit the current node.
         L: Recursively traverse the current node's left subtree.
         R: Recursively traverse the current node's right subtree*/
 
+        var sumOfAllChildren = 0L;
+        var leftRightDifference = 0L;
+
         var left = rootNode.getLeft();
         if (left != null){
             calculateDifferences(left);
-            rootNode.setDifferenceOfLeftAndRight(left.getSumOfAllChildren() + left.getValue());
-            rootNode.setSumOfAllChildren(left.getSumOfAllChildren() + left.getValue());
+            sumOfAllChildren += left.getSumOfAllChildren() + left.getValue();
+            leftRightDifference += left.getSumOfAllChildren() + left.getValue();
+            //rootNode.setDifferenceOfLeftAndRight(left.getSumOfAllChildren() + left.getValue());
+            //rootNode.setSumOfAllChildren(left.getSumOfAllChildren() + left.getValue());
         }
 
         var right = rootNode.getRight();
         if (right != null){
             calculateDifferences(right);
-            rootNode.setDifferenceOfLeftAndRight(rootNode.getDifferenceOfLeftAndRight() - (right.getSumOfAllChildren() + right.getValue()));
-            rootNode.setSumOfAllChildren(rootNode.getSumOfAllChildren() + right.getSumOfAllChildren() + right.getValue());
+            sumOfAllChildren += right.getSumOfAllChildren() + right.getValue();
+            leftRightDifference -= right.getSumOfAllChildren() + right.getValue();
+            //rootNode.setDifferenceOfLeftAndRight(rootNode.getDifferenceOfLeftAndRight() - (right.getSumOfAllChildren() + right.getValue()));
+            //rootNode.setSumOfAllChildren(rootNode.getSumOfAllChildren() + right.getSumOfAllChildren() + right.getValue());
         }
+        rootNode.setSumOfAllChildren(sumOfAllChildren);
+        rootNode.setDifferenceOfLeftAndRight(leftRightDifference);
         return rootNode;
     }
 
