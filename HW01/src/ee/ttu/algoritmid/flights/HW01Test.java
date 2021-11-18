@@ -68,15 +68,15 @@ public class HW01Test {
         unitUnderTest.registerToFlight(participant4);
         unitUnderTest.registerToFlight(participant5);
 
+
+
         var a = unitUnderTest.crewMembersWithoutTeam();
 
     }
 
-
-
-//    @Override
-//    protected void tearDown() throws Exception {
-//
-//    }
+    //1, 2, 3 lisan 1 crewmemberi iga rroli, peab minema queue. need lahevad available listis
+    //4. lisan 2 tk listi / kysin queue tulevad oiges jarerjkorras
+    //5. lisan 2 tk sama vanusega / aga erinevat rolli, tulevad tagasi oiges rolli jarjekorras
+    //6, 7, 8 flight crew loomiseks errinevad tavacased
 
 }
