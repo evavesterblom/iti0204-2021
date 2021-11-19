@@ -43,15 +43,18 @@ public class HW01 implements FlightCrewRegistrationSystem {
     private FlightCrew handleNewCopilot(FlightCrewMember participant) {
 
         var seniority = participant.getWorkExperience();
-        var matchedFlightAttendants = flightCrewMemberQueue.getAvailableCrewMembers(FlightCrewMember.Role.FLIGHT_ATTENDANT, 0.0, Math.max(0.0, seniority-3.0), true);
-        var matchedPilots = flightCrewMemberQueue.getAvailableCrewMembers(FlightCrewMember.Role.PILOT, seniority+5, seniority+10, true);
+        var matchedFlightAttendants = flightCrewMemberQueue.getAvailableCrewMembers(FlightCrewMember.Role.FLIGHT_ATTENDANT, 0.0, Math.max(0.0, seniority-3.0), true, false);
+        var matchedPilots = flightCrewMemberQueue.getAvailableCrewMembers(FlightCrewMember.Role.PILOT, seniority+5, seniority+10, true, false);
 
         if(matchedFlightAttendants.size() > 0 && matchedPilots.size() > 0)
         {
             var flightAttendant = matchedFlightAttendants.firstEntry().getValue().get(0);
             var pilot = matchedPilots.firstEntry().getValue().get(0);
+
             var flightCrew = new FlightCrewImpl(pilot, participant, flightAttendant);
-            flightCrewMemberQueue.removeFromQueue(participant);
+
+            flightCrewMemberQueue.removeFromQueue(flightAttendant);
+            flightCrewMemberQueue.removeFromQueue(pilot);
 
             return flightCrew;
         }
@@ -61,6 +64,44 @@ public class HW01 implements FlightCrewRegistrationSystem {
     }
 
     private FlightCrew handleNewPilot(FlightCrewMember participant) {
+
+        var seniority = participant.getWorkExperience();
+        boolean tooInExperienced = (seniority - 5.0) < 0.0;
+
+        if (tooInExperienced) {
+            flightCrewMemberQueue.addToQueue(participant);
+            return null;
+        }
+
+        var matchedCopilots = flightCrewMemberQueue.getAvailableCrewMembers(
+                FlightCrewMember.Role.COPILOT,
+                Math.max(0.0, seniority - 10.0),
+                Math.max(0.0, seniority - 5.0),
+                true,
+                true);
+
+        for (var coPilots : matchedCopilots.values()) {
+            for (var coPilot : coPilots) {
+                var coPilotSeniority = coPilot.getWorkExperience();
+                var matchedFlightAttendants = flightCrewMemberQueue.getAvailableCrewMembers(
+                        FlightCrewMember.Role.FLIGHT_ATTENDANT,
+                        0.0,
+                        Math.max(0.0, coPilotSeniority - 3.0),
+                        true,
+                        false);
+                if (matchedFlightAttendants.size() > 0) {
+                    var flightAttendant = matchedFlightAttendants.firstEntry().getValue().get(0);
+                    var flightCrew = new FlightCrewImpl(participant, coPilot, flightAttendant);
+
+                    flightCrewMemberQueue.removeFromQueue(flightAttendant);
+                    flightCrewMemberQueue.removeFromQueue(coPilot);
+
+                    return flightCrew;
+                }
+            }
+        }
+
+        //add to queue
         flightCrewMemberQueue.addToQueue(participant);
         return null;
     }
