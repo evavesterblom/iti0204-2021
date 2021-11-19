@@ -148,6 +148,35 @@ public class HW01Test {
         assertTrue(actual.size() == 5);
     }
 
+    @Test
+    public void testReturnCrewAndRemoveFoundFromQueue_WhenLastParticipantFlightAttendant(){
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "Pilot13", 13.0);
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "Pilot7", 7.0);
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "Pilot16", 16.0);
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "CoPilot92", 92.1);
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "CoPilot5", 5.0);
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "CoPilot7", 7.0);
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "CoPilot18", 18.0);
+        var flightCrew = addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "FA", 4.0);
+
+        assertNotNull(flightCrew);
+
+        var actual = crewMemberSystemUnit.crewMembersWithoutTeam();
+        assertTrue(actual.size() == 5);
+    }
+
+    @Test
+    public void testNoCrewMatch_WhenLastParticipantFlightAttendant(){
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "Pilot", 0.0);
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "CoPilot", 2.99999);
+        var flightCrew = addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "FlightAttendant", 8.5);
+
+        assertNull(flightCrew);
+
+        var actual = crewMemberSystemUnit.crewMembersWithoutTeam();
+        assertTrue(actual.size() == 3);
+    }
+
     //6, 7, 8 flight crew loomiseks errinevad tavacased
 
     private void testSingleCrewMember(FlightCrewMember.Role role){

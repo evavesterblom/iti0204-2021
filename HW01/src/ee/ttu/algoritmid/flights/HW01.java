@@ -37,7 +37,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
                 participant.getRole().equals(FlightCrewMember.Role.FLIGHT_ATTENDANT))){
             throw new IllegalArgumentException("Role not valid!");
         }
-        if (participant.getWorkExperience() <= 0) throw new IllegalArgumentException("Seniority not valid!");
+        if (participant.getWorkExperience() < 0) throw new IllegalArgumentException("Seniority not valid!");
     }
 
     private FlightCrew handleNewCopilot(FlightCrewMember participant) {
@@ -107,6 +107,38 @@ public class HW01 implements FlightCrewRegistrationSystem {
     }
 
     private FlightCrew handleNewFlightAttendant(FlightCrewMember participant) {
+
+        var seniority = participant.getWorkExperience();
+
+        var matchedCopilots = flightCrewMemberQueue.getAvailableCrewMembers(
+                FlightCrewMember.Role.COPILOT,
+                seniority + 3.0,
+                999.9,
+                true,
+                false);
+
+        for (var coPilots : matchedCopilots.values()) {
+            for (var coPilot : coPilots) {
+                var coPilotSeniority = coPilot.getWorkExperience();
+                var matchedPilots = flightCrewMemberQueue.getAvailableCrewMembers(
+                        FlightCrewMember.Role.PILOT,
+                        coPilotSeniority + 5,
+                        coPilotSeniority + 10,
+                        true,
+                        false);
+
+                if (matchedPilots.size() > 0) {
+                    var pilot = matchedPilots.firstEntry().getValue().get(0);
+                    var flightCrew = new FlightCrewImpl(pilot, coPilot, participant);
+
+                    flightCrewMemberQueue.removeFromQueue(pilot);
+                    flightCrewMemberQueue.removeFromQueue(coPilot);
+
+                    return flightCrew;
+                }
+            }
+        }
+
         flightCrewMemberQueue.addToQueue(participant);
         return null;
     }
