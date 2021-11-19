@@ -43,9 +43,9 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
     private FlightCrew handleNewCopilot(FlightCrewMember participant) {
 
-        var seniority = participant.getWorkExperience();
-        var matchedFlightAttendants = flightCrewMemberQueue.getAvailableCrewMembers(FlightCrewMember.Role.FLIGHT_ATTENDANT, 0.0, Math.max(0.0, seniority-3.0), true, false);
-        var matchedPilots = flightCrewMemberQueue.getAvailableCrewMembers(FlightCrewMember.Role.PILOT, seniority+5, seniority+10, true, false);
+        var coPilotSeniority = participant.getWorkExperience();
+        var matchedFlightAttendants = flightCrewMemberQueue.getAvailableCrewMembers(FlightCrewMember.Role.FLIGHT_ATTENDANT, 0.0, Math.max(0.0, coPilotSeniority-3.0), true, true);
+        var matchedPilots = flightCrewMemberQueue.getAvailableCrewMembers(FlightCrewMember.Role.PILOT, coPilotSeniority+5, coPilotSeniority+10, true, false);
 
         if(matchedFlightAttendants.size() > 0 && matchedPilots.size() > 0)
         {
