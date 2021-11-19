@@ -1,12 +1,7 @@
 package ee.ttu.algoritmid.flights;
 
-import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,45 +33,87 @@ public class HW01Test {
         }
     }
 
-    HW01 unitUnderTest;
+    HW01 crewMemberSystemUnit;
 
     @Before
     public void setUp(){
-        unitUnderTest = new HW01();
+        crewMemberSystemUnit = new HW01();
     }
 
     @Test
-    public void registerToFLight_NotPossible_NotEnoughParticipants(){
-        var participant = new TestFlightCrewMember(FlightCrewMember.Role.PILOT, "Kati Karu", 13.9);
-        //jama var actual = unitUnderTest.registerToFlight(participant);
-        //assertNull(actual);
+    public void testEmptyQueue(){
+        var actual = crewMemberSystemUnit.crewMembersWithoutTeam();
+        assertTrue(actual.isEmpty());
+    }
+    @Test
+    public void testSingleMember(){
+        testSingleCrewMember(FlightCrewMember.Role.PILOT);
+        testSingleCrewMember(FlightCrewMember.Role.COPILOT);
+        testSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT);
     }
 
     @Test
-    public void a(){
-        //var errorParticipant1 = new Double[]{109.76864722775014, 103.76732287213353, 100.35650214518184};
-        //var err1 = new TestFlightCrewMember(FlightCrewMember.Role.COPILOT, "  ", -4.999);
-        var participant1 = new TestFlightCrewMember(FlightCrewMember.Role.COPILOT, "Kati Karau", 13.3);
-        var participant2 = new TestFlightCrewMember(FlightCrewMember.Role.COPILOT, "Kati Karau", 13.3);
-        var participant3 = new TestFlightCrewMember(FlightCrewMember.Role.PILOT, "Kati Karau", 13.3);
-        var participant4 = new TestFlightCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "Kati Karau", 13.3);
-        var participant5 = new TestFlightCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "Liis", 1.3);
+    public void testAvailableCrewMemberList_SeniorityOrderFromSmallest(){
+        var crewMemberSystem = new HW01();
+        var participant1 = new TestFlightCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "Kati", 13.3444444444444);
+        var participant2 = new TestFlightCrewMember(FlightCrewMember.Role.PILOT, "Kati", 1.9);
+        crewMemberSystem.registerToFlight(participant1);
+        crewMemberSystem.registerToFlight(participant2);
 
-        unitUnderTest.registerToFlight(participant1);
-        unitUnderTest.registerToFlight(participant2);
-        unitUnderTest.registerToFlight(participant3);
-        unitUnderTest.registerToFlight(participant4);
-        unitUnderTest.registerToFlight(participant5);
+        var actual = crewMemberSystem.crewMembersWithoutTeam();
 
-
-
-        var a = unitUnderTest.crewMembersWithoutTeam();
-
+        assertTrue(actual.size() == 2);
+        assertEquals(1.9, actual.get(0).getWorkExperience());
+        assertEquals(13.3444444444444, actual.get(1).getWorkExperience());
     }
 
-    //1, 2, 3 lisan 1 crewmemberi iga rroli, peab minema queue. need lahevad available listis
-    //4. lisan 2 tk listi / kysin queue tulevad oiges jarerjkorras
-    //5. lisan 2 tk sama vanusega / aga erinevat rolli, tulevad tagasi oiges rolli jarjekorras
+    @Test
+    public void testAvailableCrewMemberListRoleOrder_WhenSenioritySame(){
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "name", 0.1);
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT,"name", 0.1);
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT,"name", 0.1);
+
+        var actual = crewMemberSystemUnit.crewMembersWithoutTeam();
+
+        assertTrue(actual.size() == 3);
+        assertEquals(FlightCrewMember.Role.FLIGHT_ATTENDANT, actual.get(0).getRole());
+        assertEquals(FlightCrewMember.Role.COPILOT, actual.get(1).getRole());
+        assertEquals(FlightCrewMember.Role.PILOT, actual.get(2).getRole());
+    }
+
+    @Test
+    public void testReturnCrewAndRemoveFromQueue_WhenMatchAvailable(){
+        //13 - 5 - 1
+        var flightCrew = addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "Pilot", 13.0);
+        assertNull(flightCrew);
+
+        flightCrew = addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "Attendant", 1.0);
+        assertNull(flightCrew);
+
+        flightCrew= addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "Copilot", 5.0);
+        assertNotNull(flightCrew);
+
+        var actualQueue = crewMemberSystemUnit.crewMembersWithoutTeam();
+        assertTrue(actualQueue.size() == 0);
+    }
+
     //6, 7, 8 flight crew loomiseks errinevad tavacased
+
+
+    private void testSingleCrewMember(FlightCrewMember.Role role){
+        var crewMemberSystem = new HW01();
+        var participant = new TestFlightCrewMember(role, "Kati Karau", 13.3);
+        crewMemberSystem.registerToFlight(participant);
+
+        var actual = crewMemberSystem.crewMembersWithoutTeam();
+
+        assertTrue(actual.size() == 1);
+        assertEquals(participant, actual.get(0));
+    }
+
+    private FlightCrew addAndRegisterSingleCrewMember(FlightCrewMember.Role role, String name, double seniority){
+        var participant = new TestFlightCrewMember(role, name, seniority);
+        return crewMemberSystemUnit.registerToFlight(participant);
+    }
 
 }

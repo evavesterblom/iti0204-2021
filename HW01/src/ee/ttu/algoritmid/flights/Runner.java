@@ -20,3 +20,16 @@ public class Runner {
         var subMapTestInclusive = map.subMap(2.0, true, 7.0, true);
     }
 }
+
+
+   /* var participant1 = new HW01Test.TestFlightCrewMember(FlightCrewMember.Role.COPILOT, "Kati Karau", 13.3);
+    var participant2 = new HW01Test.TestFlightCrewMember(FlightCrewMember.Role.COPILOT, "Kati Karau", 13.3);
+    var participant3 = new HW01Test.TestFlightCrewMember(FlightCrewMember.Role.PILOT, "Kati Karau", 13.3);
+    var participant4 = new HW01Test.TestFlightCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "Kati Karau", 13.3);
+    var participant5 = new HW01Test.TestFlightCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "Liis", 1.3);
+
+        unitUnderTest.registerToFlight(participant1);
+                unitUnderTest.registerToFlight(participant2);
+                unitUnderTest.registerToFlight(participant3);
+                unitUnderTest.registerToFlight(participant4);
+                unitUnderTest.registerToFlight(participant5);*/

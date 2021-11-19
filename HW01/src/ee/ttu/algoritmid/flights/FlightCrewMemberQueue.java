@@ -33,6 +33,7 @@ public class FlightCrewMemberQueue {
         }
     }
 
+    //add to queue and to cache
     public void addToQueue(FlightCrewMember participant) {
         TreeMap<Double, List<FlightCrewMember>> queue = new TreeMap<>();
 
@@ -61,7 +62,7 @@ public class FlightCrewMemberQueue {
         return subMap;
     }
 
-    public void removeCrewMember(FlightCrewMember participant){
+    public void removeFromQueue(FlightCrewMember participant){
 
         var seniority = participant.getWorkExperience();
         TreeMap<Double, List<FlightCrewMember>> map = new TreeMap<>();
@@ -73,10 +74,13 @@ public class FlightCrewMemberQueue {
         }
 
         var flightCrewMemberList = map.get(seniority);
-        flightCrewMemberList.remove(participant);
+        if(flightCrewMemberList != null){
+            flightCrewMemberList.remove(participant);
+        }
 
         //TODO: remove key from seniorityCache if all roleQueues are null or empty for this seniority
 
     }
 }
+
 
