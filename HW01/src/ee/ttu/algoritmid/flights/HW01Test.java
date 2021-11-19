@@ -177,7 +177,6 @@ public class HW01Test {
         assertTrue(actual.size() == 3);
     }
 
-    //6, 7, 8 flight crew loomiseks errinevad tavacased
 
     private void testSingleCrewMember(FlightCrewMember.Role role){
         var crewMemberSystem = new HW01();
