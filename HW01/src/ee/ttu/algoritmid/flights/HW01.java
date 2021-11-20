@@ -8,8 +8,8 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
     boolean flightAttendantInclusiveFrom = true;
     boolean flightAttendantInclusiveTo = true; //3Y
-    boolean pilotInclusiveFrom = false;
-    boolean pilotInclusiveTo = true;
+    boolean pilotInclusiveFrom = true;
+    boolean pilotInclusiveTo = false;
 
     @Override //todo
     public FlightCrew registerToFlight(FlightCrewMember participant) throws IllegalArgumentException {
