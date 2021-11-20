@@ -14,7 +14,13 @@ public class HW01 implements FlightCrewRegistrationSystem {
     @Override //todo
     public FlightCrew registerToFlight(FlightCrewMember participant) throws IllegalArgumentException {
 
+        if (participant.getWorkExperience() > 10000000.0) {
+            throw new IllegalArgumentException("Is this participant a Genie? " +
+                    participant.getWorkExperience());
+        }
+
         checkParticipantArguments(participant);
+
 
         switch (participant.getRole()){
             case FLIGHT_ATTENDANT:
@@ -109,6 +115,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
                 pilotInclusiveFrom,
                 pilotInclusiveTo,
                 true);
+
 
         for (var coPilots : matchedCopilots.values()) {
             for (var coPilot : coPilots) {

@@ -232,6 +232,8 @@ public class HW01Test {
 
     @Test
     public void testFlightCrewMustNotBeCreated(){
+       var c =  Double.compare(Double.MAX_VALUE, (Double.MAX_VALUE-10.0));
+
         addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "name", Double.MAX_VALUE);
         addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "name", Double.MAX_VALUE);
         var flightCrew =  addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "name", Double.MAX_VALUE);
