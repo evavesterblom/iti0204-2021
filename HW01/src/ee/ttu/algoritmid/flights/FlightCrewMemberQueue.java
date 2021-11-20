@@ -16,30 +16,21 @@ public class FlightCrewMemberQueue {
         for (var seniority : seniorityCache) {
 
             var flightAttendants = availableFlightAttendants.get(seniority);
-            if (flightAttendants != null && !flightAttendants.isEmpty()) {//addParticipantToResultList(resultList, flightAttendants);
+            if (flightAttendants != null && !flightAttendants.isEmpty()) {
                 resultList.addAll(flightAttendants);
             }
 
             var coPilots = availableCopilots.get(seniority);
-            if (coPilots != null && !coPilots.isEmpty()) { //addParticipantToResultList(resultList, coPilots);
+            if (coPilots != null && !coPilots.isEmpty()) {
                 resultList.addAll(coPilots);
             }
 
             var pilots = availablePilots.get(seniority);
-            if (pilots != null && !pilots.isEmpty()){ //addParticipantToResultList(resultList, pilots);
-                var a = 1;
+            if (pilots != null && !pilots.isEmpty()){
                 resultList.addAll(pilots);
             }
         }
         return resultList;
-    }
-
-    private void addParticipantToResultList(List<FlightCrewMember> resultList, List<FlightCrewMember> participants) {
-        for (var participant : participants) {
-            if (participant != null) {
-                resultList.add(participant);
-            }
-        }
     }
 
     //add to queue and to cache

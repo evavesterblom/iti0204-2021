@@ -89,7 +89,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
         }
 
-        else flightCrewMemberQueue.addToQueue(coPilot);
+        flightCrewMemberQueue.addToQueue(coPilot);
         return null;
     }
 
@@ -151,7 +151,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
         var matchedCopilots = flightCrewMemberQueue.getAvailableCrewMembers(
                 FlightCrewMember.Role.COPILOT,
                 seniority + 3.0,
-                9999.9/*Double.MAX_VALUE*/,
+                Double.MAX_VALUE,
                 flightAttendantInclusiveFrom,
                 flightAttendantInclusiveTo,
                 false);
