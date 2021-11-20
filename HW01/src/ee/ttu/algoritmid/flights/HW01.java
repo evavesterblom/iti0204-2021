@@ -15,7 +15,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
     public FlightCrew registerToFlight(FlightCrewMember participant) throws IllegalArgumentException {
 
         if (participant.getWorkExperience() > 10000000.0) {
-            throw new IllegalArgumentException("Is this participant a Genie ? " +
+            throw new IllegalArgumentException("Is this participant a Genie? " +
                     participant.getWorkExperience());
         }
 
