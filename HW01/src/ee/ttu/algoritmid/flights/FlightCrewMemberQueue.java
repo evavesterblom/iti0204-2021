@@ -12,15 +12,23 @@ public class FlightCrewMemberQueue {
     public List<FlightCrewMember> getMembersFromQueue() {
 
         List<FlightCrewMember> resultList = new ArrayList<>();
-        for (var seniority : seniorityCache) {
-            var flightAttendants = availableFlightAttendants.get(seniority);
-            if (flightAttendants != null) addParticipantToResultList(resultList, flightAttendants);
 
-            var copilots = availableCopilots.get(seniority);
-            if (copilots != null) addParticipantToResultList(resultList, copilots);
+        for (var seniority : seniorityCache) {
+
+            var flightAttendants = availableFlightAttendants.get(seniority);
+            if (flightAttendants != null) {//addParticipantToResultList(resultList, flightAttendants);
+                resultList.addAll(flightAttendants);
+            }
+
+            var coPilots = availableCopilots.get(seniority);
+            if (coPilots != null) { //addParticipantToResultList(resultList, coPilots);
+                resultList.addAll(coPilots);
+            }
 
             var pilots = availablePilots.get(seniority);
-            if (pilots != null) addParticipantToResultList(resultList, pilots);
+            if (pilots != null){ //addParticipantToResultList(resultList, pilots);
+                resultList.addAll(pilots);
+            }
         }
         return resultList;
     }
