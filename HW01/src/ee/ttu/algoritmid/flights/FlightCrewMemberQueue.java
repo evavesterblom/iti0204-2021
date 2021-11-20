@@ -27,6 +27,7 @@ public class FlightCrewMemberQueue {
 
             var pilots = availablePilots.get(seniority);
             if (pilots != null){ //addParticipantToResultList(resultList, pilots);
+                var a = 1;
                 resultList.addAll(pilots);
             }
         }
