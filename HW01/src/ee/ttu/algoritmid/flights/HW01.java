@@ -31,8 +31,8 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
     private void checkParticipantArguments(FlightCrewMember participant) throws IllegalArgumentException{
         if (participant == null) throw new IllegalArgumentException("Object not valid!");
+        if (participant.getName() == null) throw new IllegalArgumentException("Object not valid!");
         if (participant.getName().isEmpty() || participant.getName().isBlank()) throw new IllegalArgumentException("Name not valid!");
-        if (participant.getName() == "") throw new IllegalArgumentException("Name not valid, blank!");
         if (!(participant.getRole().equals(FlightCrewMember.Role.COPILOT) ||
                 participant.getRole().equals(FlightCrewMember.Role.PILOT) ||
                 participant.getRole().equals(FlightCrewMember.Role.FLIGHT_ATTENDANT))){
