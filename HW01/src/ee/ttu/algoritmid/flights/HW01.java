@@ -56,7 +56,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
         var matchedFlightAttendants = flightCrewMemberQueue.getAvailableCrewMembers(
                 FlightCrewMember.Role.FLIGHT_ATTENDANT,
                 0.0,
-                Math.max(0.0, coPilotSeniority - 3.0),
+                Math.max(0.0, coPilotSeniority - 3),
                 flightAttendantInclusiveFrom,
                 flightAttendantInclusiveTo,
                 true);
@@ -64,8 +64,8 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
         var matchedPilots = flightCrewMemberQueue.getAvailableCrewMembers(
                 FlightCrewMember.Role.PILOT,
-                coPilotSeniority + 5.0,
-                coPilotSeniority + 10.0,
+                coPilotSeniority + 5,
+                coPilotSeniority + 10,
                 pilotInclusiveFrom,
                 pilotInclusiveTo,
                 false);
@@ -92,7 +92,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
     private FlightCrew handleNewPilot(FlightCrewMember pilot) {
 
         var pilotSeniority = pilot.getWorkExperience();
-        boolean tooInExperienced = (pilotSeniority - 5.0) < 0.0;
+        boolean tooInExperienced = (pilotSeniority - 5) < 0;
 
         if (tooInExperienced) {
             flightCrewMemberQueue.addToQueue(pilot);
@@ -101,8 +101,8 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
         var matchedCopilots = flightCrewMemberQueue.getAvailableCrewMembers(
                 FlightCrewMember.Role.COPILOT,
-                Math.max(0.0, pilotSeniority - 10.0),
-                Math.max(0.0, pilotSeniority - 5.0),
+                Math.max(0, pilotSeniority - 10),
+                Math.max(0, pilotSeniority - 5),
                 pilotInclusiveFrom,
                 pilotInclusiveTo,
                 true);
@@ -112,8 +112,8 @@ public class HW01 implements FlightCrewRegistrationSystem {
                 var coPilotSeniority = coPilot.getWorkExperience();
                 var matchedFlightAttendants = flightCrewMemberQueue.getAvailableCrewMembers(
                         FlightCrewMember.Role.FLIGHT_ATTENDANT,
-                        0.0,
-                        Math.max(0.0, coPilotSeniority - 3.0),
+                        0,
+                        Math.max(0, coPilotSeniority - 3),
                         flightAttendantInclusiveFrom,
                         flightAttendantInclusiveTo,
                         true);
@@ -141,7 +141,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
         var matchedCopilots = flightCrewMemberQueue.getAvailableCrewMembers(
                 FlightCrewMember.Role.COPILOT,
-                seniority + 3.0,
+                seniority + 3,
                 Double.MAX_VALUE,
                 flightAttendantInclusiveFrom,
                 flightAttendantInclusiveTo,
@@ -152,8 +152,8 @@ public class HW01 implements FlightCrewRegistrationSystem {
                 var coPilotSeniority = coPilot.getWorkExperience();
                 var matchedPilots = flightCrewMemberQueue.getAvailableCrewMembers(
                         FlightCrewMember.Role.PILOT,
-                        coPilotSeniority + 5.0,
-                        coPilotSeniority + 10.0,
+                        coPilotSeniority + 5,
+                        coPilotSeniority + 10,
                         pilotInclusiveFrom,
                         pilotInclusiveTo,
                         false);
