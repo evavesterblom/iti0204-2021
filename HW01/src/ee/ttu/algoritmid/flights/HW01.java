@@ -151,7 +151,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
         var matchedCopilots = flightCrewMemberQueue.getAvailableCrewMembers(
                 FlightCrewMember.Role.COPILOT,
                 seniority + 3.0,
-                Double.MAX_VALUE,
+                9999.9/*Double.MAX_VALUE*/,
                 flightAttendantInclusiveFrom,
                 flightAttendantInclusiveTo,
                 false);
