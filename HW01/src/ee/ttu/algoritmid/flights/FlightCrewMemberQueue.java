@@ -16,17 +16,17 @@ public class FlightCrewMemberQueue {
         for (var seniority : seniorityCache) {
 
             var flightAttendants = availableFlightAttendants.get(seniority);
-            if (flightAttendants != null) {//addParticipantToResultList(resultList, flightAttendants);
+            if (flightAttendants != null && !flightAttendants.isEmpty()) {//addParticipantToResultList(resultList, flightAttendants);
                 resultList.addAll(flightAttendants);
             }
 
             var coPilots = availableCopilots.get(seniority);
-            if (coPilots != null) { //addParticipantToResultList(resultList, coPilots);
+            if (coPilots != null && !coPilots.isEmpty()) { //addParticipantToResultList(resultList, coPilots);
                 resultList.addAll(coPilots);
             }
 
             var pilots = availablePilots.get(seniority);
-            if (pilots != null){ //addParticipantToResultList(resultList, pilots);
+            if (pilots != null && !pilots.isEmpty()){ //addParticipantToResultList(resultList, pilots);
                 var a = 1;
                 resultList.addAll(pilots);
             }
