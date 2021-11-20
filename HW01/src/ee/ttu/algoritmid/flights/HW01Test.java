@@ -43,6 +43,7 @@ public class HW01Test {
     @Test
     public void testEmptyQueue(){
         var actual = crewMemberSystemUnit.crewMembersWithoutTeam();
+
         assertTrue(actual.isEmpty());
     }
 
@@ -95,6 +96,7 @@ public class HW01Test {
         assertNotNull(flightCrew);
 
         var actualQueue = crewMemberSystemUnit.crewMembersWithoutTeam();
+
         assertTrue(actualQueue.size() == 0);
     }
 
@@ -107,6 +109,7 @@ public class HW01Test {
         addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "name5", 9.0);
 
         var actual = crewMemberSystemUnit.crewMembersWithoutTeam();
+
         assertTrue(actual.size() == 5);
     }
 
@@ -131,6 +134,7 @@ public class HW01Test {
         assertNotNull(flightCrew);
 
         var actual = crewMemberSystemUnit.crewMembersWithoutTeam();
+
         assertTrue(actual.size() == 3);
     }
 
@@ -140,12 +144,12 @@ public class HW01Test {
         addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "FlightAttendant1", 100.1);
         addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "FlightAttendant2", 100.2);
         addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "FlightAttendant3", 100.3);
+
         var flightCrew = addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "Pilot", 9.0);
-
-        assertNull(flightCrew);
-
         var actual = crewMemberSystemUnit.crewMembersWithoutTeam();
+
         assertTrue(actual.size() == 5);
+        assertNull(flightCrew);
     }
 
     @Test
@@ -157,33 +161,56 @@ public class HW01Test {
         addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "CoPilot5", 5.0);
         addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "CoPilot7", 7.0);
         addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "CoPilot18", 18.0);
+
         var flightCrew = addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "FA", 4.0);
-
-        assertNotNull(flightCrew);
-
         var actual = crewMemberSystemUnit.crewMembersWithoutTeam();
+
         assertTrue(actual.size() == 5);
+        assertNotNull(flightCrew);
     }
 
     @Test
     public void testNoCrewMatch_WhenLastParticipantFlightAttendant(){
         addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "Pilot", 0.0);
         addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "CoPilot", 2.99999);
+
         var flightCrew = addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "FlightAttendant", 8.5);
-
-        assertNull(flightCrew);
-
         var actual = crewMemberSystemUnit.crewMembersWithoutTeam();
+
         assertTrue(actual.size() == 3);
+        assertNull(flightCrew);
     }
 
     @Test
-    public void testZeroSeniority(){
+    public void testFlightCrewNotCreeated_WhenZeroSeniority(){
         addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "Pilot", 0.0);
         addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "CoPilot", 0.0);
+
+        var flightCrew = addAndRegisterSingleCrewMember(
+                FlightCrewMember.Role.FLIGHT_ATTENDANT,
+                "FlightAttendant", 0.0);
+
+        assertNull(flightCrew);
+    }
+
+    @Test
+    public void testFlightCrewMustNotBeCreated_WhenLastEntryFlightAttendant(){
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "Pilot", 7.0);
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "CoPilot", 0.0);
+
         var flightCrew = addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "FlightAttendant", 0.0);
 
-        var actualQueue = crewMemberSystemUnit.crewMembersWithoutTeam();
+        assertNull(flightCrew);
+    }
+
+    @Test
+    public void testFlightCrewMustNotBeCreated_WhenLastEntryCopilot(){
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "Pilot", 7.0);
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "FlightAttendant", 0.0);
+
+        var flightCrew =  addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "CoPilot", 0.0);
+
+        assertNull(flightCrew);
     }
 
     private void testSingleCrewMember(FlightCrewMember.Role role){
