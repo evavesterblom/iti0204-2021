@@ -8,7 +8,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
     boolean flightAttendantInclusiveFrom = true;
     boolean flightAttendantInclusiveTo = true; //3Y
-    boolean pilotInclusiveFrom = true;
+    boolean pilotInclusiveFrom = false;
     boolean pilotInclusiveTo = true;
 
     @Override //todo
