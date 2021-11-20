@@ -6,10 +6,10 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
     FlightCrewMemberQueue flightCrewMemberQueue = new FlightCrewMemberQueue();
 
-    boolean flightAttendantInclusiveFrom = true;
+    boolean flightAttendantInclusiveFrom = false;
     boolean flightAttendantInclusiveTo = true; //3Y
     boolean pilotInclusiveFrom = true;
-    boolean pilotInclusiveTo = false;
+    boolean pilotInclusiveTo = true;
 
     @Override //todo
     public FlightCrew registerToFlight(FlightCrewMember participant) throws IllegalArgumentException {
