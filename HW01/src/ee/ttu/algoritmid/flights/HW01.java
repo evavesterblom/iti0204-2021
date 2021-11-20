@@ -6,7 +6,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
     FlightCrewMemberQueue flightCrewMemberQueue = new FlightCrewMemberQueue();
 
-    boolean flightAttendantInclusive = true;
+    boolean flightAttendantInclusive = false;
     boolean pilotInclusive = true;
 
     @Override //todo
