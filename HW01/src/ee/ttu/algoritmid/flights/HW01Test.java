@@ -232,21 +232,20 @@ public class HW01Test {
 
     @Test
     public void testFlightCrewMustNotBeCreated(){
-       var c =  Double.compare(Double.MAX_VALUE, (Double.MAX_VALUE-10.0));
 
-        addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "name", Double.MAX_VALUE);
-        addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "name", Double.MAX_VALUE);
-        var flightCrew =  addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "name", Double.MAX_VALUE);
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "name", 0.0);
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "name", 0.0);
+        var flightCrew =  addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "name", 0.0);
+        assertNull(flightCrew);
 
-        addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "name", Double.MAX_VALUE);
-        addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "name", Double.MAX_VALUE);
-        flightCrew =  addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "name", Double.MAX_VALUE);
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "name", 0.0);
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "name", 0.0);
+        flightCrew =  addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "name", 0.0);
+        assertNull(flightCrew);
 
-        addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "name", Double.MAX_VALUE);
-        addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "name", Double.MAX_VALUE);
-        flightCrew =  addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "name", Double.MAX_VALUE);
-
-
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "name", 0.0);
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "name", 0.0);
+        flightCrew =  addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "name", 0.0);
         assertNull(flightCrew);
     }
 
