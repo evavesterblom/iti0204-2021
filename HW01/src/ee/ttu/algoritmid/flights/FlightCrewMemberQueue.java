@@ -59,7 +59,13 @@ public class FlightCrewMemberQueue {
         seniorityCache.add(participant.getWorkExperience());
     }
 
-    public NavigableMap<Double, List<FlightCrewMember>> getAvailableCrewMembers(FlightCrewMember.Role roleToFind, double fromSeniority, double toSeniority, boolean inclusiveSearch, boolean isReverseOrder){
+    public NavigableMap<Double, List<FlightCrewMember>> getAvailableCrewMembers(
+            FlightCrewMember.Role roleToFind,
+            double fromSeniority,
+            double toSeniority,
+            boolean fromInclusive,
+            boolean toInclusive,
+            boolean isReverseOrder){
 
         TreeMap<Double, List<FlightCrewMember>> map = new TreeMap<>();
 
@@ -68,7 +74,11 @@ public class FlightCrewMemberQueue {
             case FLIGHT_ATTENDANT -> map = availableFlightAttendants;
             case COPILOT -> map = availableCopilots;
         }
-        var subMap = map.subMap(fromSeniority, inclusiveSearch, toSeniority, inclusiveSearch);
+        var subMap = map.subMap(
+                fromSeniority,
+                fromInclusive,
+                toSeniority,
+                toInclusive);
 
         if (isReverseOrder) return subMap.descendingMap();
 
