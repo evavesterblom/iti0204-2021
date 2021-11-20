@@ -211,8 +211,14 @@ public class HW01Test {
         var flightCrew =  addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "CoPilot", 0.0);
 
         assertNull(flightCrew);
-    }
 
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "Pilot", 7.0);
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "FlightAttendant", 0.0);
+
+        flightCrew =  addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "CoPilot", 2.0);
+
+        assertNull(flightCrew);
+    }
 
     @Test
     public void testFlightCrewMustNotBeCreated_WhenLastEntryPilot(){

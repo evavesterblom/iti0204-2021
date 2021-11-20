@@ -53,7 +53,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
         var coPilotSeniority = coPilot.getWorkExperience();
 
-        if (coPilotSeniority < 3) {
+        if (coPilotSeniority <= 3.0) {
             flightCrewMemberQueue.addToQueue(coPilot);
             return null;
         }
@@ -115,7 +115,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
             for (var coPilot : coPilots) {
                 var coPilotSeniority = coPilot.getWorkExperience();
 
-                if (coPilotSeniority < 3){
+                if (coPilotSeniority <= 3.0){
                     continue;
                 }
 
