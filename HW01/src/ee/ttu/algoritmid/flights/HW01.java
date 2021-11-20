@@ -44,11 +44,17 @@ public class HW01 implements FlightCrewRegistrationSystem {
     private FlightCrew handleNewCopilot(FlightCrewMember participant) {
 
         var coPilotSeniority = participant.getWorkExperience();
-        var matchedFlightAttendants = flightCrewMemberQueue.getAvailableCrewMembers(FlightCrewMember.Role.FLIGHT_ATTENDANT, 0.0, Math.max(0.0, coPilotSeniority-3.0), true, true);
+        var matchedFlightAttendants = flightCrewMemberQueue.getAvailableCrewMembers(
+                FlightCrewMember.Role.FLIGHT_ATTENDANT,
+                0.0,
+                Math.max(0.0, coPilotSeniority-3.0),
+                true,
+                true);
         var matchedPilots = flightCrewMemberQueue.getAvailableCrewMembers(FlightCrewMember.Role.PILOT, coPilotSeniority+5, coPilotSeniority+10, true, false);
 
-        if(matchedFlightAttendants.size() > 0 && matchedPilots.size() > 0)
-        {
+        if(matchedFlightAttendants.size() > 0
+                && matchedPilots.size() > 0) {
+
             var flightAttendant = matchedFlightAttendants.firstEntry().getValue().get(0);
             var pilot = matchedPilots.firstEntry().getValue().get(0);
 
@@ -58,6 +64,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
             flightCrewMemberQueue.removeFromQueue(pilot);
 
             return flightCrew;
+
         }
         else flightCrewMemberQueue.addToQueue(participant);
 
@@ -89,7 +96,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
                         0.0,
                         Math.max(0.0, coPilotSeniority - 3.0),
                         true,
-                        false);
+                        true);
                 if (matchedFlightAttendants.size() > 0) {
                     var flightAttendant = matchedFlightAttendants.firstEntry().getValue().get(0);
                     var flightCrew = new FlightCrewImpl(participant, coPilot, flightAttendant);

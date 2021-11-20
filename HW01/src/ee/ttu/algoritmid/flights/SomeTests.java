@@ -9,7 +9,7 @@ public class SomeTests {
 
     public static void main(String[] args) {
         testEndToEndPublic1("case 1");
-        testTreeEndToEndPublic3("case2");
+        testTreeEndToEndPublic3("case 2");
     }
 
     private static void testEndToEndPublic1(String caseId) {

@@ -18,16 +18,16 @@ public class FlightCrewImpl implements FlightCrew {
 
     @Override
     public FlightCrewMember getPilot() {
-        return null;
+        return pilot;
     }
 
     @Override
     public FlightCrewMember getCopilot() {
-        return null;
+        return coPilot;
     }
 
     @Override
     public FlightCrewMember getFlightAttendant() {
-        return null;
+        return flightAttendant;
     }
 }

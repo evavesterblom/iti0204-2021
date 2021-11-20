@@ -91,6 +91,10 @@ public class FlightCrewMemberQueue {
             flightCrewMemberList.remove(participant);
         }
 
+        if (flightCrewMemberList.isEmpty()){
+            map.remove(seniority);
+        }
+
         //TODO: remove key from seniorityCache if all roleQueues are null or empty for this seniority
 
     }
