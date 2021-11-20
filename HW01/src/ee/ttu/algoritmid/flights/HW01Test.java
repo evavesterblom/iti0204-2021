@@ -230,6 +230,24 @@ public class HW01Test {
         assertNull(flightCrew);
     }
 
+    @Test
+    public void testFlightCrewMustNotBeCreated(){
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "name", Double.MAX_VALUE);
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "name", Double.MAX_VALUE);
+        var flightCrew =  addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "name", Double.MAX_VALUE);
+
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "name", Double.MAX_VALUE);
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "name", Double.MAX_VALUE);
+        flightCrew =  addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "name", Double.MAX_VALUE);
+
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "name", Double.MAX_VALUE);
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "name", Double.MAX_VALUE);
+        flightCrew =  addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "name", Double.MAX_VALUE);
+
+
+        assertNull(flightCrew);
+    }
+
     private void testSingleCrewMember(FlightCrewMember.Role role){
         var crewMemberSystem = new HW01();
         var participant = new TestFlightCrewMember(role, "Kati Karau", 13.3);

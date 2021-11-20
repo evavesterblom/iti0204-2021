@@ -6,7 +6,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
     FlightCrewMemberQueue flightCrewMemberQueue = new FlightCrewMemberQueue();
 
-    boolean flightAttendantInclusiveFrom = false;
+    boolean flightAttendantInclusiveFrom = true;
     boolean flightAttendantInclusiveTo = true; //3Y
     boolean pilotInclusiveFrom = true;
     boolean pilotInclusiveTo = true;
@@ -104,8 +104,8 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
         var matchedCopilots = flightCrewMemberQueue.getAvailableCrewMembers(
                 FlightCrewMember.Role.COPILOT,
-                Math.max(0.0, pilotSeniority - 10.0),
-                Math.max(0.0, pilotSeniority - 5.0),
+                Double.max(0.0, pilotSeniority - 10.0),
+                Double.max(0.0, pilotSeniority - 5.0),
                 pilotInclusiveFrom,
                 pilotInclusiveTo,
                 true);
