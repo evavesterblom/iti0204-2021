@@ -213,6 +213,17 @@ public class HW01Test {
         assertNull(flightCrew);
     }
 
+
+    @Test
+    public void testFlightCrewMustNotBeCreated_WhenLastEntryPilot(){
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "name", 0.0);
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "name", 0.0);
+
+        var flightCrew =  addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "name", 6.0);
+
+        assertNull(flightCrew);
+    }
+
     private void testSingleCrewMember(FlightCrewMember.Role role){
         var crewMemberSystem = new HW01();
         var participant = new TestFlightCrewMember(role, "Kati Karau", 13.3);
