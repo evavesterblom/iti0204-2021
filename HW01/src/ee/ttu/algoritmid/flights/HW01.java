@@ -45,16 +45,21 @@ public class HW01 implements FlightCrewRegistrationSystem {
         if (participant.getWorkExperience() < 0) throw new IllegalArgumentException("Seniority not valid!");
     }
 
-    private FlightCrew handleNewCopilot(FlightCrewMember participant) {
+    private FlightCrew handleNewCopilot(FlightCrewMember coPilot) {
 
-        var coPilotSeniority = participant.getWorkExperience();
+        var coPilotSeniority = coPilot.getWorkExperience();
         var matchedFlightAttendants = flightCrewMemberQueue.getAvailableCrewMembers(
                 FlightCrewMember.Role.FLIGHT_ATTENDANT,
                 0.0,
-                Math.max(0.0, coPilotSeniority-3.0),
+                Math.max(0.0, coPilotSeniority - 3.0),
                 true,
                 true);
-        var matchedPilots = flightCrewMemberQueue.getAvailableCrewMembers(FlightCrewMember.Role.PILOT, coPilotSeniority+5, coPilotSeniority+10, true, false);
+        var matchedPilots = flightCrewMemberQueue.getAvailableCrewMembers(
+                FlightCrewMember.Role.PILOT,
+                coPilotSeniority + 5,
+                coPilotSeniority + 10,
+                true,
+                false);
 
         if(matchedFlightAttendants.size() > 0
                 && matchedPilots.size() > 0) {
@@ -62,7 +67,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
             var flightAttendant = matchedFlightAttendants.firstEntry().getValue().get(0);
             var pilot = matchedPilots.firstEntry().getValue().get(0);
 
-            var flightCrew = new FlightCrewImpl(pilot, participant, flightAttendant);
+            var flightCrew = new FlightCrewImpl(pilot, coPilot, flightAttendant);
 
             flightCrewMemberQueue.removeFromQueue(flightAttendant);
             flightCrewMemberQueue.removeFromQueue(pilot);
@@ -70,25 +75,25 @@ public class HW01 implements FlightCrewRegistrationSystem {
             return flightCrew;
 
         }
-        else flightCrewMemberQueue.addToQueue(participant);
+        else flightCrewMemberQueue.addToQueue(coPilot);
 
         return null;
     }
 
-    private FlightCrew handleNewPilot(FlightCrewMember participant) {
+    private FlightCrew handleNewPilot(FlightCrewMember pilot) {
 
-        var seniority = participant.getWorkExperience();
-        boolean tooInExperienced = (seniority - 5.0) < 0.0;
+        var pilotSeniority = pilot.getWorkExperience();
+        boolean tooInExperienced = (pilotSeniority - 5.0) < 0.0;
 
         if (tooInExperienced) {
-            flightCrewMemberQueue.addToQueue(participant);
+            flightCrewMemberQueue.addToQueue(pilot);
             return null;
         }
 
         var matchedCopilots = flightCrewMemberQueue.getAvailableCrewMembers(
                 FlightCrewMember.Role.COPILOT,
-                Math.max(0.0, seniority - 10.0),
-                Math.max(0.0, seniority - 5.0),
+                Math.max(0.0, pilotSeniority - 10.0),
+                Math.max(0.0, pilotSeniority - 5.0),
                 true,
                 true);
 
@@ -103,7 +108,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
                         true);
                 if (matchedFlightAttendants.size() > 0) {
                     var flightAttendant = matchedFlightAttendants.firstEntry().getValue().get(0);
-                    var flightCrew = new FlightCrewImpl(participant, coPilot, flightAttendant);
+                    var flightCrew = new FlightCrewImpl(pilot, coPilot, flightAttendant);
 
                     flightCrewMemberQueue.removeFromQueue(flightAttendant);
                     flightCrewMemberQueue.removeFromQueue(coPilot);
@@ -114,18 +119,18 @@ public class HW01 implements FlightCrewRegistrationSystem {
         }
 
         //add to queue
-        flightCrewMemberQueue.addToQueue(participant);
+        flightCrewMemberQueue.addToQueue(pilot);
         return null;
     }
 
-    private FlightCrew handleNewFlightAttendant(FlightCrewMember participant) {
+    private FlightCrew handleNewFlightAttendant(FlightCrewMember flightAttendant) {
 
-        var seniority = participant.getWorkExperience();
+        var seniority = flightAttendant.getWorkExperience();
 
         var matchedCopilots = flightCrewMemberQueue.getAvailableCrewMembers(
                 FlightCrewMember.Role.COPILOT,
                 seniority + 3.0,
-                999.9,
+                Double.MAX_VALUE,
                 true,
                 false);
 
@@ -141,7 +146,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
                 if (matchedPilots.size() > 0) {
                     var pilot = matchedPilots.firstEntry().getValue().get(0);
-                    var flightCrew = new FlightCrewImpl(pilot, coPilot, participant);
+                    var flightCrew = new FlightCrewImpl(pilot, coPilot, flightAttendant);
 
                     flightCrewMemberQueue.removeFromQueue(pilot);
                     flightCrewMemberQueue.removeFromQueue(coPilot);
@@ -151,7 +156,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
             }
         }
 
-        flightCrewMemberQueue.addToQueue(participant);
+        flightCrewMemberQueue.addToQueue(flightAttendant);
         return null;
     }
 

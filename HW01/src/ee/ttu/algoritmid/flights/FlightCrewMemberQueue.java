@@ -61,7 +61,7 @@ public class FlightCrewMemberQueue {
 
     public NavigableMap<Double, List<FlightCrewMember>> getAvailableCrewMembers(FlightCrewMember.Role roleToFind, double fromSeniority, double toSeniority, boolean inclusiveSearch, boolean isReverseOrder){
 
-            TreeMap<Double, List<FlightCrewMember>> map = new TreeMap<>();
+        TreeMap<Double, List<FlightCrewMember>> map = new TreeMap<>();
 
         switch (roleToFind){
             case PILOT -> map = availablePilots;

@@ -177,7 +177,14 @@ public class HW01Test {
         assertTrue(actual.size() == 3);
     }
 
+    @Test
+    public void testZeroSeniority(){
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "Pilot", 0.0);
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "CoPilot", 0.0);
+        var flightCrew = addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "FlightAttendant", 0.0);
 
+        var actualQueue = crewMemberSystemUnit.crewMembersWithoutTeam();
+    }
 
     private void testSingleCrewMember(FlightCrewMember.Role role){
         var crewMemberSystem = new HW01();
