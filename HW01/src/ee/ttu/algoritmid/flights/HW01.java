@@ -1,6 +1,8 @@
 package ee.ttu.algoritmid.flights;
 
+import java.math.BigDecimal;
 import java.util.*;
+import java.util.function.DoubleToLongFunction;
 
 public class HW01 implements FlightCrewRegistrationSystem {
 
@@ -10,6 +12,10 @@ public class HW01 implements FlightCrewRegistrationSystem {
     boolean flightAttendantInclusiveTo = true; //3Y
     boolean pilotInclusiveFrom = true;
     boolean pilotInclusiveTo = true;
+
+    double pilotMinSeniorityOffset = 5.0;
+    double pilotMaxSeniorityOffset = 10.0;
+    double coPilotSeniorityOffset = 3.0;
 
     @Override //todo
     public FlightCrew registerToFlight(FlightCrewMember participant) throws IllegalArgumentException {
@@ -53,7 +59,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
         var coPilotSeniority = coPilot.getWorkExperience();
 
-        if (coPilotSeniority < 3.0) {
+        if (Double.compare(coPilotSeniority, coPilotSeniorityOffset) < 0) {
             flightCrewMemberQueue.addToQueue(coPilot);
             return null;
         }
@@ -61,15 +67,15 @@ public class HW01 implements FlightCrewRegistrationSystem {
         var matchedFlightAttendants = flightCrewMemberQueue.getAvailableCrewMembers(
                 FlightCrewMember.Role.FLIGHT_ATTENDANT,
                 0.0,
-                Double.max(0.0, coPilotSeniority - 3.0),
+                Double.max(0.0, coPilotSeniority - coPilotSeniorityOffset),
                 flightAttendantInclusiveFrom,
                 flightAttendantInclusiveTo,
                 true);
 
         var matchedPilots = flightCrewMemberQueue.getAvailableCrewMembers(
                 FlightCrewMember.Role.PILOT,
-                coPilotSeniority + 5.0,
-                coPilotSeniority + 10.0,
+                coPilotSeniority + pilotMinSeniorityOffset,
+                coPilotSeniority + pilotMaxSeniorityOffset,
                 pilotInclusiveFrom,
                 pilotInclusiveTo,
                 false);
@@ -96,16 +102,18 @@ public class HW01 implements FlightCrewRegistrationSystem {
     private FlightCrew handleNewPilot(FlightCrewMember pilot) {
 
         var pilotSeniority = pilot.getWorkExperience();
+        //var pilotBigSeniority = new BigDecimal(pilot.getWorkExperience());
+        //var a = pilotBigSeniority.doubleValue();
 
-        if (pilotSeniority < 5.0) {
+        if (Double.compare(pilotSeniority, pilotMinSeniorityOffset) < 0) {
             flightCrewMemberQueue.addToQueue(pilot);
             return null;
         }
 
         var matchedCopilots = flightCrewMemberQueue.getAvailableCrewMembers(
                 FlightCrewMember.Role.COPILOT,
-                Double.max(0.0, pilotSeniority - 10.0),
-                Double.max(0.0, pilotSeniority - 5.0),
+                Double.max(0.0, pilotSeniority - pilotMaxSeniorityOffset),
+                Double.max(0.0, pilotSeniority - pilotMinSeniorityOffset),
                 pilotInclusiveFrom,
                 pilotInclusiveTo,
                 true);
@@ -113,16 +121,20 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
         for (var coPilots : matchedCopilots.values()) {
             for (var coPilot : coPilots) {
-                var coPilotSeniority = coPilot.getWorkExperience();
 
-                if (coPilotSeniority < 3.0){
+                var coPilotSeniorityLLLL = coPilot.getWorkExperience();
+
+                var coPilotSeniorityBD = BigDecimal.valueOf(coPilot.getWorkExperience());
+                var coPilotSeniority = coPilotSeniorityBD.doubleValue();
+
+                if (Double.compare(coPilotSeniority, coPilotSeniorityOffset) < 0){
                     continue;
                 }
 
                 var matchedFlightAttendants = flightCrewMemberQueue.getAvailableCrewMembers(
                         FlightCrewMember.Role.FLIGHT_ATTENDANT,
                         0.0,
-                        Double.max(0.0, coPilotSeniority - 3.0),
+                        Double.max(0.0, coPilotSeniority - coPilotSeniorityOffset),
                         flightAttendantInclusiveFrom,
                         flightAttendantInclusiveTo,
                         true);
@@ -139,7 +151,6 @@ public class HW01 implements FlightCrewRegistrationSystem {
             }
         }
 
-        //add to queue
         flightCrewMemberQueue.addToQueue(pilot);
         return null;
     }
@@ -150,7 +161,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
         var matchedCopilots = flightCrewMemberQueue.getAvailableCrewMembers(
                 FlightCrewMember.Role.COPILOT,
-                seniority + 3.0,
+                seniority + coPilotSeniorityOffset,
                 Double.MAX_VALUE,
                 flightAttendantInclusiveFrom,
                 flightAttendantInclusiveTo,
@@ -163,8 +174,8 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
                 var matchedPilots = flightCrewMemberQueue.getAvailableCrewMembers(
                         FlightCrewMember.Role.PILOT,
-                        coPilotSeniority + 5.0,
-                        coPilotSeniority + 10.0,
+                        coPilotSeniority + pilotMinSeniorityOffset,
+                        coPilotSeniority + pilotMaxSeniorityOffset,
                         pilotInclusiveFrom,
                         pilotInclusiveTo,
                         false);

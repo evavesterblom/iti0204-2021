@@ -3,6 +3,8 @@ package ee.ttu.algoritmid.flights;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class HW01Test {
@@ -231,21 +233,15 @@ public class HW01Test {
     }
 
     @Test
-    public void testFlightCrewMustNotBeCreated(){
+    public void testFlightCrewMustNotBeCreated_PrecisionProblem(){
+        //var test3 = new BigDecimal("2.999999999999999999999999991");
+        //var test2 = new BigDecimal("8.0");
+        //var vahe = test2.subtract(test3);
 
         addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "name", 0.0);
-        addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "name", 0.0);
-        var flightCrew =  addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "name", 0.0);
-        assertNull(flightCrew);
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "name", 2.999999999999999999999999991);
+        var flightCrew =  addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "name", 8.0);
 
-        addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "name", 0.0);
-        addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "name", 0.0);
-        flightCrew =  addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "name", 0.0);
-        assertNull(flightCrew);
-
-        addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "name", 0.0);
-        addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "name", 0.0);
-        flightCrew =  addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "name", 0.0);
         assertNull(flightCrew);
     }
 
