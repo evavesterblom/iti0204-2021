@@ -6,6 +6,8 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
     FlightCrewMemberQueue flightCrewMemberQueue = new FlightCrewMemberQueue();
 
+    boolean flightAttendantInclusive = true;
+    boolean pilotInclusive = true;
 
     @Override //todo
     public FlightCrew registerToFlight(FlightCrewMember participant) throws IllegalArgumentException {
@@ -53,14 +55,14 @@ public class HW01 implements FlightCrewRegistrationSystem {
                 FlightCrewMember.Role.FLIGHT_ATTENDANT,
                 0.0,
                 Math.max(0.0, coPilotSeniority - 3.0),
-                true,
+                flightAttendantInclusive,
                 true);
 
         var matchedPilots = flightCrewMemberQueue.getAvailableCrewMembers(
                 FlightCrewMember.Role.PILOT,
                 coPilotSeniority + 5.0,
                 coPilotSeniority + 10.0,
-                true,
+                pilotInclusive,
                 false);
 
         if(matchedFlightAttendants.size() > 0
@@ -96,7 +98,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
                 FlightCrewMember.Role.COPILOT,
                 Math.max(0.0, pilotSeniority - 10.0),
                 Math.max(0.0, pilotSeniority - 5.0),
-                true,
+                pilotInclusive,
                 true);
 
         for (var coPilots : matchedCopilots.values()) {
@@ -106,8 +108,9 @@ public class HW01 implements FlightCrewRegistrationSystem {
                         FlightCrewMember.Role.FLIGHT_ATTENDANT,
                         0.0,
                         Math.max(0.0, coPilotSeniority - 3.0),
-                        true,
+                        flightAttendantInclusive,
                         true);
+
                 if (matchedFlightAttendants.size() > 0) {
                     var flightAttendant = matchedFlightAttendants.firstEntry().getValue().get(0);
                     var flightCrew = new FlightCrewImpl(pilot, coPilot, flightAttendant);
@@ -133,7 +136,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
                 FlightCrewMember.Role.COPILOT,
                 seniority + 3.0,
                 Double.MAX_VALUE,
-                true,
+                flightAttendantInclusive,
                 false);
 
         for (var coPilots : matchedCopilots.values()) {
@@ -143,7 +146,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
                         FlightCrewMember.Role.PILOT,
                         coPilotSeniority + 5.0,
                         coPilotSeniority + 10.0,
-                        true,
+                        pilotInclusive,
                         false);
 
                 if (matchedPilots.size() > 0) {
