@@ -2,14 +2,14 @@ package ee.ttu.algoritmid.flights;
 
 import java.util.*;
 
-public class FlightCrewMemberQueue {
+public class FlightCrewMemberQueueMap {
 
     private TreeMap<Double, List<FlightCrewMember>> availablePilots = new TreeMap<>();
     private TreeMap<Double, List<FlightCrewMember>> availableCopilots = new TreeMap<>();
     private TreeMap<Double, List<FlightCrewMember>> availableFlightAttendants = new TreeMap<>();
     private SortedSet<Double> seniorityCache = new TreeSet<>();
 
-    public List<FlightCrewMember> getMembersFromQueue() {
+    public List<FlightCrewMember> getAllMembersFromQueueSorted() {
 
         List<FlightCrewMember> resultList = new ArrayList<>();
 
@@ -33,7 +33,6 @@ public class FlightCrewMemberQueue {
         return resultList;
     }
 
-    //add to queue and to cache
     public void addToQueue(FlightCrewMember participant) {
         TreeMap<Double, List<FlightCrewMember>> queue = new TreeMap<>();
 
@@ -48,32 +47,6 @@ public class FlightCrewMemberQueue {
         }
         queue.get(participant.getWorkExperience()).add(participant);
         seniorityCache.add(participant.getWorkExperience());
-    }
-
-    public NavigableMap<Double, List<FlightCrewMember>> getAvailableCrewMembers(
-            FlightCrewMember.Role roleToFind,
-            double fromSeniority,
-            double toSeniority,
-            boolean fromInclusive,
-            boolean toInclusive,
-            boolean isReverseOrder){
-
-        TreeMap<Double, List<FlightCrewMember>> map = new TreeMap<>();
-
-        switch (roleToFind){
-            case PILOT -> map = availablePilots;
-            case FLIGHT_ATTENDANT -> map = availableFlightAttendants;
-            case COPILOT -> map = availableCopilots;
-        }
-        var subMap = map.subMap(
-                fromSeniority,
-                fromInclusive,
-                toSeniority,
-                toInclusive);
-
-        if (isReverseOrder) return subMap.descendingMap();
-
-        return subMap;
     }
 
     public void removeFromQueue(FlightCrewMember participant){
@@ -99,6 +72,34 @@ public class FlightCrewMemberQueue {
         //TODO: remove key from seniorityCache if all roleQueues are null or empty for this seniority
 
     }
+
+    public NavigableMap<Double, List<FlightCrewMember>> getFromQueueByRange(
+            FlightCrewMember.Role roleToFind,
+            double fromSeniority,
+            double toSeniority,
+            boolean fromInclusive,
+            boolean toInclusive,
+            boolean isReverseOrder){
+
+        TreeMap<Double, List<FlightCrewMember>> map = new TreeMap<>();
+
+        switch (roleToFind){
+            case PILOT -> map = availablePilots;
+            case FLIGHT_ATTENDANT -> map = availableFlightAttendants;
+            case COPILOT -> map = availableCopilots;
+        }
+        var subMap = map.subMap(
+                fromSeniority,
+                fromInclusive,
+                toSeniority,
+                toInclusive);
+
+        if (isReverseOrder) return subMap.descendingMap();
+
+        return subMap;
+    }
+
+
 }
 
 

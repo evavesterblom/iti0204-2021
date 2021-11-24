@@ -117,6 +117,7 @@ public class HW01Test {
 
     @Test
     public void testReturnCrewAndRemoveFoundFromQueue_WhenLastParticipantPilot(){
+       FlightCrewMemberQueueBst n = new FlightCrewMemberQueueBst();
         var flightCrew = addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "MatchCopilot1", 10.1);
         assertNull(flightCrew);
 
@@ -239,8 +240,9 @@ public class HW01Test {
         //var vahe = test2.subtract(test3);
 
         addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "name", 0.0);
-        addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "name", 2.999999999999999999999999991);
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "name", 2.9999999999999999);
         var flightCrew =  addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "name", 8.0);
+
 
         assertNull(flightCrew);
     }

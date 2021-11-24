@@ -3,6 +3,7 @@ package ee.ttu.algoritmid.flights;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import static ee.ttu.algoritmid.flights.FlightCrewMember.Role.*;
 
 public class SomeTests {
