@@ -24,6 +24,7 @@ class BSTTree {
 
     private Node root;
 
+
     public Node getRoot(){
         return  root;
     }
@@ -60,6 +61,7 @@ class BSTTree {
         treeWalkInorderRange(root, list, fromKey, toKey, isReversed);
         return list;
     }
+
 
     private void treeWalkInorderRange(Node node, ArrayList<Node> list, double fromKey, double toKey, boolean isReversed){
         if (node == null) {
@@ -254,10 +256,13 @@ public class FlightCrewMemberQueueBst{
         var rangeAsc = tree.treeWalkInorderRange(3.1, 18.9, false);
         var rangeDesc = tree.treeWalkInorderRange(3.1, 18.9, true);
 
-        var g = tree.get(3.0);
-        var gg = tree.get( 3.3);
+        double koma = 135.9999999999999;
 
-        var a = tree.containsKey(4.0);
+        var g = tree.get(3.0);
+        var ggg = tree.get(2.99999999999999999999999999999999999999999999999);
+        var gg = tree.get(3.3);
+
+        var a = tree.containsKey(4.9999999999999999999999999999999999999999);
         var b = tree.containsKey(10.5556783333333);
 
         var myRoot = tree.getRoot();

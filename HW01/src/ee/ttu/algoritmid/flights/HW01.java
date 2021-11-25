@@ -156,8 +156,9 @@ public class HW01 implements FlightCrewRegistrationSystem {
                 flightAttendantInclusiveTo,
                 false);
 
-        for (var coPilot : matchedCopilots) {
+        if (matchedCopilots.size() > 0){
 
+            var coPilot = matchedCopilots.get(0);
             var coPilotSeniority = coPilot.getWorkExperience();
 
             var matchedPilots = flightCrewMemberQueueBst.getFromQueueByRange(

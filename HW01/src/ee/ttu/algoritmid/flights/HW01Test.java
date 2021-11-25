@@ -240,7 +240,7 @@ public class HW01Test {
         //var vahe = test2.subtract(test3);
 
         addAndRegisterSingleCrewMember(FlightCrewMember.Role.FLIGHT_ATTENDANT, "name", 0.0);
-        addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "name", 2.9999999999999999);
+        addAndRegisterSingleCrewMember(FlightCrewMember.Role.COPILOT, "name", 2.9999999999999);
         var flightCrew =  addAndRegisterSingleCrewMember(FlightCrewMember.Role.PILOT, "name", 8.0);
 
 
