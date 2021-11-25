@@ -99,7 +99,7 @@ public class HW01 implements FlightCrewRegistrationSystem {
 
         var pilotSeniority = pilot.getWorkExperience();
 
-        if (Double.compare(pilotSeniority, pilotMinSeniorityOffset) < 0) {
+        if (Double.compare(pilotSeniority, /*pilotMinSeniorityOffset*/8) < 0) {
             flightCrewMemberQueueBst.addToQueue(pilot);
             return null;
         }
