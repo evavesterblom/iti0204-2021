@@ -53,7 +53,7 @@ class BSTTree {
     }
 
     public void delete(double key){
-        delete(root, key);
+        root = delete(root, key);
     }
 
     public ArrayList<Node> treeWalkInorder(boolean isReversed){
