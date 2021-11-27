@@ -17,7 +17,7 @@ public class InterestingStamps {
             else {interesingStamps.add(stamp);}
         }
 
-        //Collections.sort(interesingStamps);
+        Collections.sort(interesingStamps, Collections.reverseOrder());
         //Collections.sort(boringStamps);
 
         var M = new int[sum+1];
