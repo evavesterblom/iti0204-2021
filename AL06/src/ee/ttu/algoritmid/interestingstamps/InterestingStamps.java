@@ -23,6 +23,14 @@ public class InterestingStamps {
         var M = new int[sum+1];
         var V = new int[sum+1];
 
+        //init M and V
+        for(var stamp : stampOptions ){
+            if (stamp <= sum){
+                M[stamp] = 1;
+                V[stamp] = stamp;
+            }
+        }
+
         for (int i = 1; i < sum+1; i++){
 
             M[i] = Integer.MAX_VALUE;
