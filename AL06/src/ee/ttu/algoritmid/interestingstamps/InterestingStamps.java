@@ -17,10 +17,8 @@ public class InterestingStamps {
             else {interesingStamps.add(stamp);}
         }
 
-        Collections.sort(interesingStamps);
-        Collections.sort(boringStamps);
-
-
+        //Collections.sort(interesingStamps);
+        //Collections.sort(boringStamps);
 
         var M = new int[sum+1];
         var V = new int[sum+1];
@@ -29,7 +27,7 @@ public class InterestingStamps {
 
             M[i] = Integer.MAX_VALUE;
 
-            for (int s = 0; s < interesingStamps.size(); s++){
+            for (int s = interesingStamps.size(); s >= 0; s--){
                 var stamp = interesingStamps.get(s);
                 if (i >= stamp && M[i] > M[i-stamp] + 1){
                     M[i] = M[i-stamp] + 1;
@@ -37,7 +35,7 @@ public class InterestingStamps {
                 }
             }
 
-            for (int s = 0; s < boringStamps.size(); s++){
+            for (int s = interesingStamps.size(); s >= 0; s--){
                 var stamp = boringStamps.get(s);
                 if (i >= stamp && M[i] > M[i-stamp] + 1){
                     M[i] = M[i-stamp] + 1;
