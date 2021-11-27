@@ -7,7 +7,8 @@ import java.util.List;
 public class InterestingStamps {
     public static List<Integer> findStamps(int sum, List<Integer> stampOptions) throws IllegalArgumentException {
 
-        if (stampOptions.size() == 0) return null;
+        if (stampOptions.size() == 0) throw new IllegalArgumentException("Illegal input");
+
         List<Integer> interesingStamps = new ArrayList<>();
         List<Integer> boringStamps = new ArrayList<>();
 
