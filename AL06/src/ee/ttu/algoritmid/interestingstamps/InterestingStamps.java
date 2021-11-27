@@ -23,7 +23,7 @@ public class InterestingStamps {
         var M = new int[sum+1];
         var V = new int[sum+1];
 
-        for (int i = 0; i < sum+1; i++){
+        for (int i = 1; i < sum+1; i++){
 
             M[i] = Integer.MAX_VALUE;
 
@@ -57,7 +57,7 @@ public class InterestingStamps {
 
     public static void main(String[] args) {
 
-        var sum = 100000;
+        var sum = 100;
         var stampOptions = new ArrayList<Integer>();
         stampOptions.add(1);
         stampOptions.add(10);
@@ -65,6 +65,8 @@ public class InterestingStamps {
         stampOptions.add(30);
         stampOptions.add(33);
         stampOptions.add(36);
+        //List<Integer> stamps = Arrays.asList(36, 1, 2, 8, 17, 13, 7, 15, 21, 32, 24, 26, 33, 10, 27);
+        //        int sum = 100;
 
         var a = findStamps(sum, stampOptions);
         var b = "stop";
