@@ -23,20 +23,6 @@ public class InterestingStamps {
         var M = new int[sum+1];
         var V = new int[sum+1];
 
-        for(var boringStamp : boringStamps){
-            for (int i = 1; i < sum/boringStamp; i++){
-                M[i*boringStamp] = i;
-                V[i*boringStamp] = boringStamp;
-            }
-        }
-
-        for(var interestingStamp : interestingStamps){
-            for (int i = 1; i < sum/interestingStamp; i++){
-                M[i*interestingStamp] = i;
-                V[i*interestingStamp] = interestingStamp;
-            }
-        }
-
         for (int i = 1; i < sum+1; i++){
 
             M[i] = Integer.MAX_VALUE;
