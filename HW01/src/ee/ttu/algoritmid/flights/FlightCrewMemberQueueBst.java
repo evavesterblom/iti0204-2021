@@ -24,10 +24,10 @@ class BSTTree {
 
     private Node root;
 
-    private boolean balance;
+    private boolean doBalancing;
 
     BSTTree(boolean doBalancing){
-        balance = doBalancing;
+        this.doBalancing = doBalancing;
     }
 
 
@@ -109,7 +109,7 @@ class BSTTree {
         if (key == node.key) return node;
 
         //Balance BST
-        if (balance) {
+        if (doBalancing) {
             node.height = 1 + Math.max(getHeight(node.left), getHeight(node.right));
             var balance = getBalance(node);
 
@@ -156,7 +156,7 @@ class BSTTree {
         }
 
         //Balance BST
-        if (balance) {
+        if (doBalancing) {
             node.height = 1 + Math.max(getHeight(node.left), getHeight(node.right));
             var balance = getBalance(node);
 
