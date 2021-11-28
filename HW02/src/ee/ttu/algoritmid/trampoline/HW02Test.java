@@ -64,6 +64,20 @@ public class HW02Test {
         assertEquals(0, result.getTotalFine());
     }
 
+    @Test
+    public void testFines(){
+        int[][] forceMap = {
+                {1,1},
+                {1,0}
+        };
+
+        var trampoline = forceMapToTrampoline(forceMap);
+        var result = solution.play(trampoline);
+
+        assertEquals(List.of("E2", "S2"), result.getJumps());
+        assertEquals(0, result.getTotalFine());
+    }
+
     private Trampoline[][] forceMapToTrampoline(int [][] forceMap){
 
         Trampoline[][] map = new Trampoline[forceMap.length][forceMap[0].length];

@@ -30,9 +30,17 @@ public class BFSDjikstra {
                     if(!distanceMap.containsKey(v)) unvisitedQueue.add(v);
 
                     //if found shorter distance
-                    if(!distanceMap.containsKey(v) || distance < distanceMap.get(v)){
-                        distanceMap.put(v, distance);
-                        previousMap.put(v, element);
+                    if(!distanceMap.containsKey(v)){
+
+                        if(distance < distanceMap.get(v)){
+                            distanceMap.put(v, distance);
+                            previousMap.put(v, element);
+                        }
+                        //arvesta trahvi siin
+                        if(distance == distanceMap.get(v)){
+                            //peaks vaatama kas see distancemap key on trahviga ja kui suurega
+                            //kui trahv on vaiksem, siis eelista uut teekonda
+                        }
                     }
                 }
 
