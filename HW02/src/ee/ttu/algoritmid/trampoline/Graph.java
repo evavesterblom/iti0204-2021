@@ -32,10 +32,24 @@ public class Graph {
 
                 var jumpForce = trampoline.getJumpForce();
                 if (jumpForce > 0) {
+                    //case =
                     var newPointEast = new Point(row, col + jumpForce);
                     var newPointSouth = new Point(row + jumpForce, col);
                     addConnection(newVertex, newPointEast);
                     addConnection(newVertex, newPointSouth);
+
+                    //case +-
+                    newPointEast = new Point(row, col + jumpForce + 1);
+                    newPointSouth = new Point(row + jumpForce + 1, col);
+                    addConnection(newVertex, newPointEast);
+                    addConnection(newVertex, newPointSouth);
+                    if (jumpForce > 1) {
+                        newPointEast = new Point(row, col + jumpForce - 1);
+                        newPointSouth = new Point(row + jumpForce - 1, col);
+                        addConnection(newVertex, newPointEast);
+                        addConnection(newVertex, newPointSouth);
+                    }
+
                 }
                 updateEdges(newVertex);
             }

@@ -6,6 +6,8 @@ public class BFSDjikstra {
 
     public HashMap<Vertex, Vertex> search(Vertex start, Vertex goal){
 
+        if (start == null || goal == null) return null;
+
         var unvisitedQueue = new ArrayList<Vertex>();
         var distanceMap = new HashMap<Vertex, Integer>();
         var previousMap = new HashMap<Vertex, Vertex>();
@@ -42,6 +44,9 @@ public class BFSDjikstra {
     }
 
     public List<Vertex> reversePathMap(HashMap<Vertex, Vertex> previousMap, Vertex source, Vertex goal){
+
+        if (previousMap == null || source == null || goal == null) return null;
+
         var result = new LinkedList<Vertex>();
         var v = goal;
         if(previousMap.containsKey(goal) || source == goal){
