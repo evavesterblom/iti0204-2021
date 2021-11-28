@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Vertex {
-    private Point coordinate;
+    public Point coordinate;
     private HashSet<Vertex> edges;
     private Trampoline.Type type;
     private int force;
@@ -18,7 +18,7 @@ public class Vertex {
         this.force = force;
     }
 
-    public void addEdge (Vertex vertex /*to where connect*/){
-        this.edges.add(vertex);
+    public void addDirectedEdge(Vertex whereToConnect){
+        this.edges.add(whereToConnect);
     }
 }
