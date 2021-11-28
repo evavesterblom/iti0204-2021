@@ -31,11 +31,12 @@ public class Graph {
                 vertexMap.put(new Point(row,col), newVertex);
 
                 var jumpForce = trampoline.getJumpForce();
-                var newPointEast = new Point(row, col + jumpForce);
-                var newPointSouth = new Point(row + jumpForce, col);
-                addConnection(newVertex, newPointEast);
-                addConnection(newVertex, newPointSouth);
-
+                if (jumpForce > 0) {
+                    var newPointEast = new Point(row, col + jumpForce);
+                    var newPointSouth = new Point(row + jumpForce, col);
+                    addConnection(newVertex, newPointEast);
+                    addConnection(newVertex, newPointSouth);
+                }
                 updateEdges(newVertex);
             }
         }

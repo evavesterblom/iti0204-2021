@@ -21,4 +21,8 @@ public class Vertex {
     public void addDirectedEdge(Vertex whereToConnect){
         this.edges.add(whereToConnect);
     }
+
+    public HashSet<Vertex> getConnectedVertexes(){
+        return this.edges;
+    }
 }
