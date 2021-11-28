@@ -17,6 +17,7 @@ public class SomeTests {
             for (int j = 0; j < map[0].length; j++) {
                 int finalI = i;
                 int finalJ = j;
+
                 map[i][j] = new Trampoline() {
                     @Override
                     public int getJumpForce() {
