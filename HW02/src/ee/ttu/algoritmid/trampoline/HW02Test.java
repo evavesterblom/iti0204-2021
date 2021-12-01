@@ -27,8 +27,8 @@ public class HW02Test {
 
     @Test
     public void testOneElement(){
-        int[][] forceMap = {
-                {0}
+        String[][] forceMap = {
+                {"0"}
         };
         var trampoline = forceMapToTrampoline(forceMap);
         var result = solution.play(trampoline);
@@ -38,8 +38,8 @@ public class HW02Test {
 
     @Test
     public void testTwoElements(){
-        int[][] forceMap = {
-                {1,0}
+        String[][] forceMap = {
+                {"1","0"}
         };
 
         var trampoline = forceMapToTrampoline(forceMap);
@@ -51,34 +51,39 @@ public class HW02Test {
 
     @Test
     public void testManyElements(){
-        int[][] forceMap = {
-                {1,2,2},
-                {2,10,1},
-                {3,2,0}
+        String[][] forceMap = {
+                {"1","2","2"},
+                {"2","10","1"},
+                {"3","1","0"}
         };
 
         var trampoline = forceMapToTrampoline(forceMap);
-        var result = solution.play(trampoline);
+        var actualResult = solution.play(trampoline);
 
-        assertEquals(List.of("E2", "S2"), result.getJumps());
-        assertEquals(0, result.getTotalFine());
+        var acceptableResultList = new ArrayList<List<String>>();
+        acceptableResultList.add(List.of("S1", "E2", "S1"));
+        acceptableResultList.add(List.of("E2", "S2"));
+        acceptableResultList.add(List.of("S2", "E2"));
+        acceptableResultList.add(List.of("E1", "S2", "E1"));
+        assertTrue(isAcceptableResult(actualResult, acceptableResultList));
+        assertEquals(0, actualResult.getTotalFine());
     }
 
     @Test
     public void testFines(){
-        int[][] forceMap = {
-                {1,1},
-                {1,0}
+        String[][] forceMap = {
+                {"1","f1"},
+                {"1","0"}
         };
 
         var trampoline = forceMapToTrampoline(forceMap);
         var result = solution.play(trampoline);
 
-        assertEquals(List.of("E2", "S2"), result.getJumps());
+        assertEquals(List.of("S1", "E1"), result.getJumps());
         assertEquals(0, result.getTotalFine());
     }
 
-    private Trampoline[][] forceMapToTrampoline(int [][] forceMap){
+    private Trampoline[][] forceMapToTrampoline(String [][] forceMap){
 
         Trampoline[][] map = new Trampoline[forceMap.length][forceMap[0].length];
 
@@ -90,26 +95,42 @@ public class HW02Test {
                 map[i][j] = new Trampoline() {
                     @Override
                     public int getJumpForce() {
-                        return forceMap[finalI][finalJ];
+                        return getElementJumpForce(forceMap[finalI][finalJ]);
                     }
 
                     @Override
                     public Type getType() {
-                        return Type.NORMAL;
+                        return getElementType(forceMap[finalI][finalJ]);
                     }
                 };
             }
         }
-
         return map;
     }
 
-    /*
-            int[][] forceMap = {
-                {1, 2, 2},
-                {2, 10, 1},
-                {3, 2, 0}
-        };
-     */
+    private Integer getElementJumpForce(String element){
+        var token = element.charAt(0);
+        if (Character.isAlphabetic(token)) {
+            return Integer.parseInt(element.substring(1));
+        }
+        return Integer.parseInt(element);
+    }
+
+    private Trampoline.Type getElementType(String element){
+        String elementString = element;
+        if (elementString.contains("f")) return Trampoline.Type.WITH_FINE;
+        if (elementString.contains("w")) return Trampoline.Type.WALL;
+        return Trampoline.Type.NORMAL;
+    }
+
+
+    private boolean isAcceptableResult(Result result, ArrayList<List<String>> possibleResults){
+
+        var resultList = result.getJumps();
+        for (var r : possibleResults){
+            if (r.equals(resultList)) return true;
+        }
+        return false;
+    }
 
 }

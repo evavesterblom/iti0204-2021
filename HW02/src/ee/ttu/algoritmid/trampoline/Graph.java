@@ -39,7 +39,6 @@ public class Graph {
                     addConnection(newVertex, newPointSouth);
 
                     //case +-
-                    /*
                     newPointEast = new Point(row, col + jumpForce + 1);
                     newPointSouth = new Point(row + jumpForce + 1, col);
                     addConnection(newVertex, newPointEast);
@@ -50,8 +49,6 @@ public class Graph {
                         addConnection(newVertex, newPointEast);
                         addConnection(newVertex, newPointSouth);
                     }
-                    */
-
                 }
                 updateEdges(newVertex);
             }

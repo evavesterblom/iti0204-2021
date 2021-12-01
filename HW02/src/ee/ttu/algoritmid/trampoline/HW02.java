@@ -14,15 +14,15 @@ public class HW02 implements TrampolineCenter {
 
         //graph search and get result list of vertexes > translate to jumps
         BFSDjikstra bfs = new BFSDjikstra();
-        var searchResult = bfs.search(start, end);
-        var reversedPath = bfs.reversePathMap(searchResult, start, end);
-        var getJumps = pathToJumps(reversedPath, end);
-
+        var shortestRoutes = bfs.searchAllShortestRoutes(start, end);
+        var routeWithLowestFine = bfs.searchRouteLowestFine(end, start, shortestRoutes);
+        var finalRoute = bfs.getRoute(routeWithLowestFine, start, end);
+        var jumps = routeToJumps(finalRoute, end);
 
         return new Result() {
             @Override
             public List<String> getJumps() {
-                return getJumps;
+                return jumps;
             }
 
             @Override
@@ -33,15 +33,15 @@ public class HW02 implements TrampolineCenter {
     }
 
 
-    private List<String> pathToJumps(List<Vertex> BFSreversedPath, Vertex end){
+    private List<String> routeToJumps(List<Vertex> route, Vertex end){
 
         var jumps = new ArrayList<String>();
-        if (BFSreversedPath == null || end == null) return jumps;
+        if (route == null || end == null) return jumps;
 
 
-        for (int i = 0; i < BFSreversedPath.size()-1; ++i){
-            var current = BFSreversedPath.get(i).coordinate;
-            var next = BFSreversedPath.get(i + 1).coordinate;
+        for (int i = 0; i < route.size()-1; ++i){
+            var current = route.get(i).coordinate;
+            var next = route.get(i + 1).coordinate;
 
             String jump = null;
             if (current.x == next.x) jump = "E" + (next.y - current.y);

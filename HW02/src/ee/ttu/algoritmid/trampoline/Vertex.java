@@ -10,12 +10,14 @@ public class Vertex {
     private HashSet<Vertex> edges;
     private Trampoline.Type type;
     private int force;
+    public int fine = 0;
 
     public Vertex(int x, int y, Trampoline.Type type, int force){
         this.coordinate = new Point(x, y);
         this.edges = new HashSet<>();
         this.type = type;
         this.force = force;
+        if (Trampoline.Type.WITH_FINE == this.type) this.fine = this.force;
     }
 
     public void addDirectedEdge(Vertex whereToConnect){
@@ -25,4 +27,5 @@ public class Vertex {
     public HashSet<Vertex> getConnectedVertexes(){
         return this.edges;
     }
+
 }
