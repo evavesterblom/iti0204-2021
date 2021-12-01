@@ -83,6 +83,35 @@ public class HW02Test {
         assertEquals(0, result.getTotalFine());
     }
 
+    @Test
+    public void testFines_WhenMultipleFines_Small(){
+        String[][] forceMap = {
+                {"f1","f1"},
+                {"1","0"}
+        };
+
+        var trampoline = forceMapToTrampoline(forceMap);
+        var result = solution.play(trampoline);
+
+        assertEquals(List.of("S1", "E1"), result.getJumps());
+        assertEquals(0, result.getTotalFine());
+    }
+
+    @Test
+    public void testFines_WhenMultipleFines_PlusMinus(){
+        String[][] forceMap = {
+                {"1","0"},
+                {"f1","0"}
+        };
+
+        var trampoline = forceMapToTrampoline(forceMap);
+        var result = solution.play(trampoline);
+
+        assertEquals(List.of("E1", "S1"), result.getJumps());
+        assertEquals(0, result.getTotalFine());
+    }
+
+
     private Trampoline[][] forceMapToTrampoline(String [][] forceMap){
 
         Trampoline[][] map = new Trampoline[forceMap.length][forceMap[0].length];

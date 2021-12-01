@@ -31,21 +31,13 @@ public class Graph {
                 vertexMap.put(new Point(row,col), newVertex);
 
                 var jumpForce = trampoline.getJumpForce();
-                if (jumpForce > 0) {
-                    //case =
-                    var newPointEast = new Point(row, col + jumpForce);
-                    var newPointSouth = new Point(row + jumpForce, col);
-                    addConnection(newVertex, newPointEast);
-                    addConnection(newVertex, newPointSouth);
 
-                    //case +-
-                    newPointEast = new Point(row, col + jumpForce + 1);
-                    newPointSouth = new Point(row + jumpForce + 1, col);
-                    addConnection(newVertex, newPointEast);
-                    addConnection(newVertex, newPointSouth);
-                    if (jumpForce > 1) {
-                        newPointEast = new Point(row, col + jumpForce - 1);
-                        newPointSouth = new Point(row + jumpForce - 1, col);
+                var jumps = new int[]{jumpForce-1, jumpForce, jumpForce+1};
+                //var jumps = new int[] {jumpForce};
+                for (var jump : jumps){
+                    if (jump > 0) {
+                        var newPointEast = new Point(row, col + jump);
+                        var newPointSouth = new Point(row + jump, col);
                         addConnection(newVertex, newPointEast);
                         addConnection(newVertex, newPointSouth);
                     }
