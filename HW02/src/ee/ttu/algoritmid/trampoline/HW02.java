@@ -55,6 +55,7 @@ public class HW02 implements TrampolineCenter {
     }
 
     private int getSumFines(List<Vertex> vertex){
+        if (vertex == null) return 0;
         int totalFine = 0;
         for (var v : vertex){
             totalFine = totalFine + v.fine;
