@@ -43,7 +43,7 @@ public class Graph {
                 trampoline.getType() == Trampoline.Type.WITH_FINE){
                     rowUnconnectedVertexes.add(newVertex);
                     colUnconnectedVertexes[col].add(newVertex);
-                    var jumps = new int[]{jumpForce-1, jumpForce, jumpForce+1};
+                    var jumps = new int[]{/*jumpForce-1,*/ jumpForce/*, jumpForce+1*/};
                         for (var jump : jumps){
                             if (jump > 0) {
                                 var newPointEast = new Point(row, col + jump);
