@@ -111,6 +111,20 @@ public class HW02Test {
         assertEquals(0, result.getTotalFine());
     }
 
+    @Test
+    public void testEasyWall(){
+        String[][] forceMap = {
+                {"33", "1", "w0"},
+                {"11", "1", "0"}
+        };
+
+        var trampoline = forceMapToTrampoline(forceMap);
+        var result = solution.play(trampoline);
+
+        assertEquals(List.of("E1", "S1", "E1"), result.getJumps());
+        assertEquals(0, result.getTotalFine());
+    }
+
 
     private Trampoline[][] forceMapToTrampoline(String [][] forceMap){
 
@@ -151,7 +165,6 @@ public class HW02Test {
         if (elementString.contains("w")) return Trampoline.Type.WALL;
         return Trampoline.Type.NORMAL;
     }
-
 
     private boolean isAcceptableResult(Result result, ArrayList<List<String>> possibleResults){
 

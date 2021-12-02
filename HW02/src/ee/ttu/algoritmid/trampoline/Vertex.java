@@ -9,7 +9,7 @@ public class Vertex {
     public Point coordinate;
     private HashSet<Vertex> edges;
     private Trampoline.Type type;
-    private int force;
+    public int force;
     public int fine = 0;
 
     public Vertex(int x, int y, Trampoline.Type type, int force){
@@ -21,6 +21,7 @@ public class Vertex {
     }
 
     public void addDirectedEdge(Vertex whereToConnect){
+        if (this == whereToConnect) return; //no loopy loops
         this.edges.add(whereToConnect);
     }
 
