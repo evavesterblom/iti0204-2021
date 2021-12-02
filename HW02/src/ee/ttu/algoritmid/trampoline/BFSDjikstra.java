@@ -22,7 +22,6 @@ public class BFSDjikstra {
                 if (element == goal) found = true;
 
                 var connectedVertexes = element.getConnectedVertexes();
-                unvisitedQueue.addAll(connectedVertexes);
 
                 for (var v : connectedVertexes){
 
@@ -35,6 +34,10 @@ public class BFSDjikstra {
                     }
                     else if (distance == distanceMap.get(v)) {
                         previousMap.get(v).add(element);
+                    }
+
+                    if (!distanceMap.containsKey(v)){
+                        unvisitedQueue.add(v);
                     }
                 }
             }
@@ -61,7 +64,8 @@ public class BFSDjikstra {
 
                 var connectedVertexes = routes.get(element);
                 if (connectedVertexes != null) {
-                    unvisitedQueue.addAll(connectedVertexes);
+                    //dont add already visited ones
+                    //unvisitedQueue.addAll(connectedVertexes);
 
                     for (var v : connectedVertexes) {
 
@@ -70,6 +74,7 @@ public class BFSDjikstra {
                         if (!fineMap.containsKey(v) || fine < fineMap.get(v)) {
                             fineMap.put(v, fine);
                             previousMap.put(v, element);
+                            unvisitedQueue.add(v);
                         }
                     }
                 }

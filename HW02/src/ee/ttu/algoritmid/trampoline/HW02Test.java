@@ -112,7 +112,7 @@ public class HW02Test {
     }
 
     @Test
-    public void testEasyWall(){
+    public void testWall2x3(){
         String[][] forceMap = {
                 {"33", "1", "w0"},
                 {"11", "1", "0"}
@@ -124,6 +124,37 @@ public class HW02Test {
         assertEquals(List.of("E1", "S1", "E1"), result.getJumps());
         assertEquals(0, result.getTotalFine());
     }
+
+    @Test
+    public void testWall3x4(){
+        String[][] forceMap = {
+                {"10", "2", "w0", "2"},
+                {"3", "1", "4", "1"},
+                {"w0", "2", "2", "0"}
+        };
+
+        var trampoline = forceMapToTrampoline(forceMap);
+        var actualResult = solution.play(trampoline);
+
+        var acceptableResultList = new ArrayList<List<String>>();
+        acceptableResultList.add(List.of("S1", "E3", "S1"));
+        acceptableResultList.add(List.of("E1", "S2", "E2"));
+        assertTrue(isAcceptableResult(actualResult, acceptableResultList));
+        assertEquals(0, actualResult.getTotalFine());
+    }
+
+    @Test
+    public void testManyInputs(){
+        var trampoline = forceMapToTrampoline(createMap(100,100));
+        var actualResult = solution.play(trampoline);
+
+        var acceptableResultList = new ArrayList<List<String>>();
+        acceptableResultList.add(List.of("S1", "E3", "S1"));
+        acceptableResultList.add(List.of("E1", "S2", "E2"));
+        assertTrue(isAcceptableResult(actualResult, acceptableResultList));
+        assertEquals(0, actualResult.getTotalFine());
+    }
+
 
 
     private Trampoline[][] forceMapToTrampoline(String [][] forceMap){
@@ -173,6 +204,17 @@ public class HW02Test {
             if (r.equals(resultList)) return true;
         }
         return false;
+    }
+
+    private String[][] createMap(int rows, int cols){
+        String[][] map = new String[rows][cols];
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[0].length; j++) {
+                map[i][j] = "1";
+            }
+        }
+        map[rows-1][cols-1] = "0";
+        return map;
     }
 
 }
