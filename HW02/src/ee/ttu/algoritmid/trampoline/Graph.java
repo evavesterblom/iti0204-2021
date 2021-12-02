@@ -15,6 +15,9 @@ public class Graph {
     private Point maxPoint;
 
     public void createGraph(Trampoline[][] map){
+        //
+        long timerStart = System.currentTimeMillis();
+        //
         if (map.length == 0) return;
         var rows = map.length;
         var columns = map[0].length;
@@ -84,6 +87,7 @@ public class Graph {
                 updateEdges(newVertex, rowUnconnectedVertexes, colUnconnectedVertexes[col]);
             }
         }
+        System.out.println("create Graph took " + (System.currentTimeMillis()-timerStart));
     }
 
     private void updateEdges(Vertex vertex, List<Vertex> rowUnconnectedVertexes, List<Vertex> colUnconnectedVertexes) {

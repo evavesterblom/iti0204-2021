@@ -145,6 +145,7 @@ public class HW02Test {
 
     @Test
     public void testPerformance(){
+        System.out.println("For 2000x2000");
         var trampoline = forceMapToTrampoline(createMap(1000,1000));
         var actualResult = solution.play(trampoline);
 

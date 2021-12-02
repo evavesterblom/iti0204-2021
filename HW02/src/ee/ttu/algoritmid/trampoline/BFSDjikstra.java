@@ -5,6 +5,11 @@ import java.util.*;
 public class BFSDjikstra {
 
     public HashMap<Vertex, List<Vertex>> searchAllShortestRoutes(Vertex start, Vertex goal){
+
+        //
+        long timerStart = System.currentTimeMillis();
+        //
+
         if (start == null || goal == null) return null;
 
         var unvisitedQueue = new ArrayList<Vertex>();
@@ -44,10 +49,15 @@ public class BFSDjikstra {
             }
             distance = distance + 1;
         }
+        System.out.println("searchAllShortestRoutes took " + (System.currentTimeMillis()-timerStart));
         return previousMap;
     }
 
     public HashMap<Vertex, Vertex> searchRouteLowestFine(Vertex start, Vertex goal, HashMap<Vertex, List<Vertex>> routes){
+        //
+        long timerStart = System.currentTimeMillis();
+        //
+
         if (start == null || goal == null) return null;
 
         var unvisitedQueue = new ArrayList<Vertex>();
@@ -81,6 +91,7 @@ public class BFSDjikstra {
                 }
             }
         }
+        System.out.println("searchRouteLowestFine took " + (System.currentTimeMillis()-timerStart));
         return previousMap;
     }
 
@@ -101,6 +112,9 @@ public class BFSDjikstra {
     }
 
     public List<Vertex> getRoute(HashMap<Vertex, Vertex> routeMap, Vertex source, Vertex goal){
+        //
+        long timerStart = System.currentTimeMillis();
+        //
         if (routeMap == null || source == null || goal == null) return null;
 
         var result = new LinkedList<Vertex>();
@@ -112,6 +126,7 @@ public class BFSDjikstra {
             }
             result.add(goal);
         }
+        System.out.println("getRoute took " + (System.currentTimeMillis()-timerStart));
         return result;
     }
 }
