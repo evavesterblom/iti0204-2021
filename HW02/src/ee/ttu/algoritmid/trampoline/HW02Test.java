@@ -154,7 +154,6 @@ public class HW02Test {
     }
 
 
-
     private Trampoline[][] forceMapToTrampoline(String [][] forceMap){
 
         Trampoline[][] map = new Trampoline[forceMap.length][forceMap[0].length];
