@@ -31,6 +31,7 @@ public class BFSDjikstra {
                         var list = new ArrayList<Vertex>();
                         list.add(element);
                         previousMap.put(v, list);
+                        unvisitedQueue.add(v);
                     }
                     else if (distance == distanceMap.get(v)) {
                         previousMap.get(v).add(element);

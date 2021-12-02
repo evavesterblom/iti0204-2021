@@ -144,14 +144,11 @@ public class HW02Test {
     }
 
     @Test
-    public void testManyInputs(){
-        var trampoline = forceMapToTrampoline(createMap(100,100));
+    public void testPerformance(){
+        var trampoline = forceMapToTrampoline(createMap(1000,1000));
         var actualResult = solution.play(trampoline);
 
-        var acceptableResultList = new ArrayList<List<String>>();
-        acceptableResultList.add(List.of("S1", "E3", "S1"));
-        acceptableResultList.add(List.of("E1", "S2", "E2"));
-        assertTrue(isAcceptableResult(actualResult, acceptableResultList));
+        assertTrue(actualResult.getJumps().size() > 0);
         assertEquals(0, actualResult.getTotalFine());
     }
 
