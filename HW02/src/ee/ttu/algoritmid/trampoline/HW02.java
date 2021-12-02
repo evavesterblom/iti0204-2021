@@ -27,7 +27,7 @@ public class HW02 implements TrampolineCenter {
 
             @Override
             public int getTotalFine() {
-                return 0;
+                return getSumFines(finalRoute);
             }
         };
     }
@@ -52,5 +52,13 @@ public class HW02 implements TrampolineCenter {
             if(next == end.coordinate) break;
         }
         return jumps;
+    }
+
+    private int getSumFines(List<Vertex> vertex){
+        int totalFine = 0;
+        for (var v : vertex){
+            totalFine = totalFine + v.fine;
+        }
+        return totalFine;
     }
 }

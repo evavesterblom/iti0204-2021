@@ -94,7 +94,7 @@ public class HW02Test {
         var result = solution.play(trampoline);
 
         assertEquals(List.of("S1", "E1"), result.getJumps());
-        assertEquals(0, result.getTotalFine());
+        assertEquals(1, result.getTotalFine());
     }
 
     @Test
