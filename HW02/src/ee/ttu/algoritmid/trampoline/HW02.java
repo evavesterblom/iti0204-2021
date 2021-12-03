@@ -7,12 +7,14 @@ public class HW02 implements TrampolineCenter {
 
     @Override
     public Result play(Trampoline[][] map) {
+        // method 1
+        // create graph from map; find all possible shortest routes; find the route with the lowest fine(s); get jumps
+        /*
         Graph graph = new Graph();
         graph.createGraph(map);
         var start = graph.getStartVertex();
         var end = graph.getEndVertex();
 
-        //graph search and get result list of vertexes > translate to jumps
         BFSDjikstra bfs = new BFSDjikstra();
         var shortestRoutes = bfs.searchAllShortestRoutes(start, end);
         var routeWithLowestFine = bfs.searchRouteLowestFine(end, start, shortestRoutes);
@@ -30,16 +32,30 @@ public class HW02 implements TrampolineCenter {
                 return getSumFines(finalRoute);
             }
         };
+         */
+
+        // method 2
+        BFSDjikstra bfs = new BFSDjikstra();
+        var res = bfs.straightSearch(map);
+        return new Result() {
+            @Override
+            public List<String> getJumps() {
+                return res.resultRoute;
+            }
+
+            @Override
+            public int getTotalFine() {
+                return res.totalFine;
+            }
+        };
+
     }
 
-
-    private List<String> routeToJumps(List<Vertex> route, Vertex end){
-
+    private List<String> routeToJumps(List<Vertex> route, Vertex end) {
         var jumps = new ArrayList<String>();
         if (route == null || end == null) return jumps;
 
-
-        for (int i = 0; i < route.size()-1; ++i){
+        for (int i = 0; i < route.size() - 1; ++i) {
             var current = route.get(i).coordinate;
             var next = route.get(i + 1).coordinate;
 
@@ -49,15 +65,16 @@ public class HW02 implements TrampolineCenter {
 
             if (jump != null) jumps.add(jump);
 
-            if(next == end.coordinate) break;
+            if (next == end.coordinate) break;
         }
         return jumps;
     }
 
-    private int getSumFines(List<Vertex> vertex){
+    private int getSumFines(List<Vertex> vertex) {
         if (vertex == null) return 0;
         int totalFine = 0;
-        for (var v : vertex){
+
+        for (var v : vertex) {
             totalFine = totalFine + v.fine;
         }
         return totalFine;
