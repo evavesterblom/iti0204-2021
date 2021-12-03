@@ -121,6 +121,10 @@ public class BFSDjikstra {
         if (rows == 0) return new Method2Result(null, null, null, null);;
         var columns = map[0].length;
 
+        //var distanceMap = new HashMap<Point, Integer>();
+        //var fineMap = new HashMap<Point, Integer>();
+        //var previousMap = new HashMap<Point, Point>();
+
         var distanceMap = new HashMap<Point, Integer>();
         var fineMap = new HashMap<Point, Integer>();
         var previousMap = new HashMap<Point, Point>();
@@ -165,6 +169,76 @@ public class BFSDjikstra {
         var totalFine = fineMap.get(end);
         System.out.println("straightSearch took " + (System.currentTimeMillis()-timerStart));
         var r = new Method2Result(previousMap, totalFine, end, start);
+        return r;
+    }
+
+    //Method 3
+    public Method2ResultWithoutMaps straightSearchWithoutMaps(Trampoline[][] map){
+        long timerStart = System.currentTimeMillis();
+
+        if (map == null) return new Method2ResultWithoutMaps(null, null, null, null);
+
+        var rows = map.length;
+        if (rows == 0) return new Method2ResultWithoutMaps(null, null, null, null);;
+        var columns = map[0].length;
+
+        //var distanceMap = new HashMap<Point, Integer>();
+        //var fineMap = new HashMap<Point, Integer>();
+        //var previousMap = new HashMap<Point, Point>();
+
+        var distanceMap = new Integer[rows][columns]; //new HashMap<Point, Integer>();
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[0].length; j++) {
+                distanceMap[i][j] = -1;
+            }
+        }
+
+        var fineMap =  new Integer[rows][columns]; //new HashMap<Point, Integer>();
+        var previousMap = new Point[rows][columns]; //new HashMap<Point, Point>();
+
+        var unvisitedQueue = new ArrayDeque<Point>();
+        boolean found = false;
+        var start = new Point(0, 0);
+        var end = new Point(rows-1, columns-1);
+
+
+        unvisitedQueue.add(new Point(0, 0));
+        fineMap[0][0] =  getPointFine(start, map); //fineMap.put(start, getPointFine(start, map));
+        distanceMap[0][0] = 0; //distanceMap.put(start, 0);
+
+        while(!unvisitedQueue.isEmpty() && !found){
+            var element = unvisitedQueue.poll();
+            if (element.equals(end)) found = true;
+
+            //get landing points for element
+            var jumpLocations = getLandingPoints(element, map);
+            var fine = fineMap[element.x][element.y]; //fineMap.get(element);
+
+            for (var jumpLocation : jumpLocations){
+                var newDistance = distanceMap[element.x][element.y] + 1;//distanceMap.get(element) + 1;
+                //shorter distance
+                var newFine = fine + getPointFine(jumpLocation, map);
+                //if (!distanceMap.containsKey(jumpLocation) || newDistance < distanceMap.get(jumpLocation)) {
+                 if(distanceMap[jumpLocation.x][jumpLocation.y] == -1 ||
+                         newDistance < distanceMap[jumpLocation.x][jumpLocation.y]){
+                     distanceMap[jumpLocation.x][jumpLocation.y] = newDistance; //distanceMap.put(jumpLocation, newDistance);
+                     previousMap[jumpLocation.x][jumpLocation.y] = element; //previousMap.put(jumpLocation, element);
+                     unvisitedQueue.add(jumpLocation);
+                     fineMap[jumpLocation.x][jumpLocation.y] = newFine; //fineMap.put(jumpLocation, newFine);
+                } //else if (newDistance == distanceMap.get(jumpLocation)) {
+                    else if (newDistance == distanceMap[jumpLocation.x][jumpLocation.y]) {
+                    //if(!fineMap.containsKey(jumpLocation) || newFine < fineMap.get(jumpLocation)){
+                     if(fineMap[jumpLocation.x][jumpLocation.y] == -1|| newFine < fineMap[jumpLocation.x][jumpLocation.y]){
+                         previousMap[jumpLocation.x][jumpLocation.y] = element; //previousMap.put(jumpLocation, element);
+                         unvisitedQueue.add(jumpLocation);
+                         fineMap[jumpLocation.x][jumpLocation.y] = newFine; //fineMap.put(jumpLocation, newFine);
+                    }
+                }
+            }
+        }
+        var totalFine = fineMap[end.x][end.y]; //fineMap.get(end);
+        System.out.println("straightSearch took " + (System.currentTimeMillis()-timerStart));
+        var r = new Method2ResultWithoutMaps(previousMap, totalFine, end, start);
         return r;
     }
 

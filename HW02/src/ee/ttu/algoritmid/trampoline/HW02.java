@@ -35,8 +35,25 @@ public class HW02 implements TrampolineCenter {
          */
 
         // method 2
+        /*
         BFSDjikstra bfs = new BFSDjikstra();
         var res = bfs.straightSearch(map);
+        return new Result() {
+            @Override
+            public List<String> getJumps() {
+                return res.resultRoute;
+            }
+
+            @Override
+            public int getTotalFine() {
+                return res.totalFine;
+            }
+        };
+         */
+
+        //method 3
+        BFSDjikstra bfs = new BFSDjikstra();
+        var res = bfs.straightSearchWithoutMaps(map);
         return new Result() {
             @Override
             public List<String> getJumps() {
