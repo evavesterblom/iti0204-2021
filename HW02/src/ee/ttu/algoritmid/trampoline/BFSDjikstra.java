@@ -174,7 +174,7 @@ public class BFSDjikstra {
 
     //Method 3
     public Method2ResultWithoutMaps straightSearchWithoutMaps(Trampoline[][] map){
-        long timerStart = System.currentTimeMillis();
+        //long timerStart = System.currentTimeMillis();
 
         if (map == null) return new Method2ResultWithoutMaps(null, null, null, null);
 
@@ -196,7 +196,7 @@ public class BFSDjikstra {
         var fineMap =  new Integer[rows][columns]; //new HashMap<Point, Integer>();
         var previousMap = new Point[rows][columns]; //new HashMap<Point, Point>();
 
-        var unvisitedQueue = new ArrayDeque<Point>();
+        var unvisitedQueue = new LinkedList<Point>(); //new ArrayDeque<Point>();
         boolean found = false;
         var start = new Point(0, 0);
         var end = new Point(rows-1, columns-1);
@@ -237,7 +237,7 @@ public class BFSDjikstra {
             }
         }
         var totalFine = fineMap[end.x][end.y]; //fineMap.get(end);
-        System.out.println("straightSearch took " + (System.currentTimeMillis()-timerStart));
+        //System.out.println("straightSearch took " + (System.currentTimeMillis()-timerStart));
         var r = new Method2ResultWithoutMaps(previousMap, totalFine, end, start);
         return r;
     }
