@@ -6,8 +6,8 @@ public class BFSMatrix {
     List<Integer>[] rowWalls;
     List<Integer>[] columnWalls;
     boolean plusMinus = true;
-    Integer[][] distanceMap;
-    Integer[][] fineMap;
+    int[][] distanceMap;
+    int[][] fineMap;
     Point[][] previousMap;
     Trampoline[][] trampolineMap;
 
@@ -75,8 +75,8 @@ public class BFSMatrix {
         rowWalls = new ArrayList[rows];
         columnWalls = new ArrayList[columns];
 
-        distanceMap = new Integer[rows][columns];
-        fineMap = new Integer[rows][columns];
+        distanceMap = new int[rows][columns];
+        fineMap = new int[rows][columns];
         previousMap = new Point[rows][columns];
         fillMap(rows, columns, distanceMap, -1);
 
@@ -88,18 +88,15 @@ public class BFSMatrix {
         var unvisitedQueue = new LinkedList<Point>();
 
         unvisitedQueue.add(start);
-        while (!unvisitedQueue.isEmpty()) {
+        while (!unvisitedQueue.isEmpty() && !found) {
             var point = unvisitedQueue.poll();
-            var newChildDistance = getAccumulatedDistance(point) + 1;
-
-            if (found && newChildDistance < getAccumulatedDistance(end)) continue;
             if (point.equals(end)) found = true;
 
             var children = getLandingPoints(point, map); //get landing points for element
             var fine = getAccumulatedFine(point);
+            var newChildDistance = getAccumulatedDistance(point) + 1;
 
             for (var child : children) {
-
                 var currentChildDistance = getAccumulatedDistance(child);
                 var newChildFine = fine + getTrampolineFine(child);
                 var currentChildFine = getAccumulatedFine(child);
@@ -147,7 +144,7 @@ public class BFSMatrix {
         return fineMap[point.x][point.y];
     }
 
-    private void fillMap(int rows, int columns, Integer[][] distanceMap, int fillValue) {
+    private void fillMap(int rows, int columns, int[][] distanceMap, int fillValue) {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 distanceMap[i][j] = fillValue;
