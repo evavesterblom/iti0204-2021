@@ -49,7 +49,7 @@ public class HW02 implements TrampolineCenter {
          */
 
         //Method 2 - without graphs, using matrices
-        /*BFSMatrix bfs = new BFSMatrix();
+        BFSMatrix bfs = new BFSMatrix();
         var res = bfs.straightSearchWithoutMaps(map);
         return new Result() {
             @Override
@@ -62,10 +62,10 @@ public class HW02 implements TrampolineCenter {
                 return res.totalFine;
             }
         };
-         */
+
 
         // Method 3
-        DFS dfs = new DFS();
+        /*DFS dfs = new DFS();
         var res = dfs.search(map);
         return new Result() {
             @Override
@@ -78,6 +78,7 @@ public class HW02 implements TrampolineCenter {
                 return res.totalFine;
             }
         };
+         */
     }
 
     private List<String> routeToJumps(List<Vertex> route, Vertex end) {
