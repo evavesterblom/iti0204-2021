@@ -88,16 +88,18 @@ public class BFSMatrix {
         var unvisitedQueue = new LinkedList<Point>();
 
         unvisitedQueue.add(start);
-        while (!unvisitedQueue.isEmpty() && !found) {
+        while (!unvisitedQueue.isEmpty()) {
             var point = unvisitedQueue.poll();
+            var newChildDistance = getAccumulatedDistance(point) + 1;
+
+            if (found && newChildDistance < getAccumulatedDistance(end)) continue;
             if (point.equals(end)) found = true;
 
             var children = getLandingPoints(point, map); //get landing points for element
             var fine = getAccumulatedFine(point);
-            //children.stream().sorted(Collections.reverseOrder());
 
             for (var child : children) {
-                var newChildDistance = getAccumulatedDistance(point) + 1;
+
                 var currentChildDistance = getAccumulatedDistance(child);
                 var newChildFine = fine + getTrampolineFine(child);
                 var currentChildFine = getAccumulatedFine(child);
