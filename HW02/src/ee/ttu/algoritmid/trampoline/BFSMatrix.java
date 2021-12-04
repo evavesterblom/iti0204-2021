@@ -178,7 +178,7 @@ public class BFSMatrix {
         var wallEast = checkWallsBetweenJump(element, new Point(element.x, element.y + force + 1), map);
         var wallSouth = checkWallsBetweenJump(element, new Point(element.x + force + 1, element.y), map);
 
-        var jumps = new int[]{force, force + 1};
+        var jumps = new int[]{force - 1, force, force + 1};
         if (force == 0) jumps = new int[]{force + 1};
         if (force == 1) jumps = new int[]{force, force + 1};
         if(!plusMinus) jumps = new int[]{force};
