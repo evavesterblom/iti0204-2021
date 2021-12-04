@@ -185,7 +185,6 @@ public class BFSDjikstra {
         var rows = map.length;
         if (rows == 0) return new Method2ResultWithoutMaps(null, null, null, null);
         var columns = map[0].length;
-        if (rows > 1000 && columns > 1000) plusMinus = false;
 
         rowWalls = new ArrayList[rows];
         columnWalls = new ArrayList[columns];
