@@ -6,6 +6,10 @@ public class BFSMatrix {
     List<Integer>[] rowWalls;
     List<Integer>[] columnWalls;
     boolean plusMinus = true;
+    Integer[][] distanceMap;
+    Integer[][] fineMap;
+    Point[][] previousMap;
+    Trampoline[][] trampolineMap;
 
     //Method 2 (search uses HashMaps)
     public Method2Result straightSearch(Trampoline[][] map) {
@@ -28,7 +32,7 @@ public class BFSMatrix {
 
 
         unvisitedQueue.add(new Point(0, 0));
-        fineMap.put(start, getPointFine(start, map));
+        fineMap.put(start, getTrampolineFine(start));
         distanceMap.put(start, 0);
 
         while (!unvisitedQueue.isEmpty() && !found) {
@@ -42,7 +46,7 @@ public class BFSMatrix {
             for (var jumpLocation : jumpLocations) {
                 var newDistance = distanceMap.get(element) + 1;
                 //shorter distance
-                var newFine = fine + getPointFine(jumpLocation, map);
+                var newFine = fine + getTrampolineFine(jumpLocation);
                 if (!distanceMap.containsKey(jumpLocation) || newDistance < distanceMap.get(jumpLocation)) {
                     distanceMap.put(jumpLocation, newDistance);
                     previousMap.put(jumpLocation, element);
@@ -66,8 +70,8 @@ public class BFSMatrix {
 
     //Method 2 optimized (uses plain matrices)
     public Method2ResultWithoutMaps straightSearchWithoutMaps(Trampoline[][] map) {
+        this.trampolineMap = map;
         if (map == null) return new Method2ResultWithoutMaps(null, null, null, null);
-
         var rows = map.length;
         if (rows == 0) return new Method2ResultWithoutMaps(null, null, null, null);
         var columns = map[0].length;
@@ -75,53 +79,81 @@ public class BFSMatrix {
         rowWalls = new ArrayList[rows];
         columnWalls = new ArrayList[columns];
 
-        var distanceMap = new Integer[rows][columns];
-        var fineMap = new Integer[rows][columns];
-        var previousMap = new Point[rows][columns];
-        var unvisitedQueue = new LinkedList<Point>();
+        distanceMap = new Integer[rows][columns];
+        fineMap = new Integer[rows][columns];
+        previousMap = new Point[rows][columns];
+        fillMap(rows, columns, distanceMap, -1);
 
         boolean found = false;
         var start = new Point(0, 0);
         var end = new Point(rows - 1, columns - 1);
+        updateDistance(start, 0);
+        updateFine(start, getTrampolineFine(start));
+        var unvisitedQueue = new LinkedList<Point>();
 
-        unvisitedQueue.add(new Point(0, 0));
-        fineMap[0][0] = getPointFine(start, map);
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[0].length; j++) {
-                distanceMap[i][j] = -1;
-            }
-        }
-        distanceMap[0][0] = 0;
-
+        unvisitedQueue.add(start);
         while (!unvisitedQueue.isEmpty() && !found) {
-            var element = unvisitedQueue.poll();
-            if (element.equals(end)) found = true;
+            var point = unvisitedQueue.poll();
+            if (point.equals(end)) found = true;
 
-            //get landing points for element
-            var jumpLocations = getLandingPoints(element, map);
-            var fine = fineMap[element.x][element.y];
+            var children = getLandingPoints(point, map); //get landing points for element
+            var fine = getAccumulatedFine(point);
 
-            for (var jumpLocation : jumpLocations) {
-                var newDistance = distanceMap[element.x][element.y] + 1;
-                //shorter distance
-                var newFine = fine + getPointFine(jumpLocation, map);
-                if (distanceMap[jumpLocation.x][jumpLocation.y] == -1
-                        || newDistance < distanceMap[jumpLocation.x][jumpLocation.y]) {
-                    distanceMap[jumpLocation.x][jumpLocation.y] = newDistance;
-                    previousMap[jumpLocation.x][jumpLocation.y] = element;
-                    unvisitedQueue.add(jumpLocation);
-                    fineMap[jumpLocation.x][jumpLocation.y] = newFine;
-                } else if (newDistance == distanceMap[jumpLocation.x][jumpLocation.y]) {
-                    if (fineMap[jumpLocation.x][jumpLocation.y] == -1 || newFine < fineMap[jumpLocation.x][jumpLocation.y]) {
-                        previousMap[jumpLocation.x][jumpLocation.y] = element;
-                        unvisitedQueue.add(jumpLocation);
-                        fineMap[jumpLocation.x][jumpLocation.y] = newFine;
-                    }
+            for (var child : children) {
+                var newChildDistance = getAccumulatedDistance(point) + 1;
+                var currentChildDistance = getAccumulatedDistance(child);
+                var newChildFine = fine + getTrampolineFine(child);
+                var currentChildFine = getAccumulatedFine(child);
+
+                if (notVisited(child) || newChildDistance < currentChildDistance) { //shorter
+                    updateDistance(child, newChildDistance);
+                    updateRoute(child, point);
+                    updateFine(child, newChildFine);
+                    unvisitedQueue.add(child);
+
+                } else if (newChildDistance == currentChildDistance && newChildFine < currentChildFine) { //same distance but better
+                    updateRoute(child, point);
+                    updateFine(child, newChildFine);
+                    unvisitedQueue.add(child);
                 }
             }
         }
-        var totalFine = fineMap[end.x][end.y];
+        var totalFine = getAccumulatedFine(end);
         return new Method2ResultWithoutMaps(previousMap, totalFine, end, start);
+    }
+
+    private void updateFine(Point point, int fine) {
+        fineMap[point.x][point.y] = fine;
+    }
+
+    private void updateRoute(Point child, Point parent) {
+        previousMap[child.x][child.y] = parent;
+    }
+
+    private void updateDistance(Point point, int distance) {
+        distanceMap[point.x][point.y] = distance;
+    }
+
+    private boolean notVisited(Point point) {
+        return getAccumulatedDistance(point) == -1;
+    }
+
+    private int getAccumulatedDistance(Point point) {
+        if (point == null) return 0;
+        return distanceMap[point.x][point.y];
+    }
+
+    private int getAccumulatedFine(Point point) {
+        if (point == null) return 0;
+        return fineMap[point.x][point.y];
+    }
+
+    private void fillMap(int rows, int columns, Integer[][] distanceMap, int fillValue) {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                distanceMap[i][j] = fillValue;
+            }
+        }
     }
 
     private List<Point> getLandingPoints(Point element, Trampoline[][] map) {
@@ -232,9 +264,9 @@ public class BFSMatrix {
         return point.y < 0;
     }
 
-    private Integer getPointFine(Point point, Trampoline[][] map) {
-        if (point == null || map == null) return 0;
-        if (map[point.x][point.y].getType() == Trampoline.Type.WITH_FINE) return map[point.x][point.y].getJumpForce();
+    private Integer getTrampolineFine(Point point) {
+        if (point == null || trampolineMap == null) return 0;
+        if (trampolineMap[point.x][point.y].getType() == Trampoline.Type.WITH_FINE) return trampolineMap[point.x][point.y].getJumpForce();
         return 0;
     }
 

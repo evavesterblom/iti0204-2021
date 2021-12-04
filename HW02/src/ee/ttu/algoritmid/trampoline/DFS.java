@@ -79,6 +79,7 @@ public class DFS {
                 updateDistance(point, newElementDistance, distanceMap);
                 updateParent(point, parent, previousMap);
                 updateFine(point, newFine, fineMap);
+                // update children again?
             }
             else if (newElementDistance == getDistance(point, distanceMap)){
                 if(newFine < getFine(point, fineMap)){
