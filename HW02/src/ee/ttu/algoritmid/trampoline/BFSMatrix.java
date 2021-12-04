@@ -107,7 +107,7 @@ public class BFSMatrix {
                     updateFine(child, newChildFine);
                     unvisitedQueue.add(child);
 
-                } else if (newChildFine < currentChildFine) { //same distance but better
+                } else if (newChildFine < currentChildFine && newChildDistance == currentChildDistance) { //same distance but better newChildDistance == currentChildDistance && newChildFine < currentChildFine
                     updateRoute(child, point);
                     updateFine(child, newChildFine);
                     unvisitedQueue.add(child);
