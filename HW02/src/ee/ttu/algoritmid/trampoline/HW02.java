@@ -7,15 +7,13 @@ public class HW02 implements TrampolineCenter {
 
     @Override
     public Result play(Trampoline[][] map) {
-        // method 1
-        // create graph from map; find all possible shortest routes; find the route with the lowest fine(s); get jumps
-        /*
+        /* Method 1 - graphs, using HashMaps
         Graph graph = new Graph();
         graph.createGraph(map);
         var start = graph.getStartVertex();
         var end = graph.getEndVertex();
 
-        BFSDjikstra bfs = new BFSDjikstra();
+        BFSGraphs bfs = new BFSGraphs();
         var shortestRoutes = bfs.searchAllShortestRoutes(start, end);
         var routeWithLowestFine = bfs.searchRouteLowestFine(end, start, shortestRoutes);
         var finalRoute = bfs.getRoute(routeWithLowestFine, start, end);
@@ -34,9 +32,8 @@ public class HW02 implements TrampolineCenter {
         };
          */
 
-        // method 2
-        /*
-        BFSDjikstra bfs = new BFSDjikstra();
+        /* Method 2 - without graphs, using HashMaps
+        BFSOptimized bfs = new BFSOptimized();
         var res = bfs.straightSearch(map);
         return new Result() {
             @Override
@@ -51,8 +48,8 @@ public class HW02 implements TrampolineCenter {
         };
          */
 
-        //method 3
-        BFSDjikstra bfs = new BFSDjikstra();
+        //Method 2 - without graphs, using matrices
+        /*BFSMatrix bfs = new BFSMatrix();
         var res = bfs.straightSearchWithoutMaps(map);
         return new Result() {
             @Override
@@ -65,7 +62,22 @@ public class HW02 implements TrampolineCenter {
                 return res.totalFine;
             }
         };
+         */
 
+        // Method 3
+        DFS dfs = new DFS();
+        var res = dfs.search(map);
+        return new Result() {
+            @Override
+            public List<String> getJumps() {
+                return res.resultRoute;
+            }
+
+            @Override
+            public int getTotalFine() {
+                return res.totalFine;
+            }
+        };
     }
 
     private List<String> routeToJumps(List<Vertex> route, Vertex end) {
