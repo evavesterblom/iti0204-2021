@@ -8,6 +8,7 @@ public class BFSDjikstra {
     //for method 3 test
     List<Integer>[] rowWalls;
     List<Integer>[] columnWalls;
+    boolean plusMinus = true;
 
     //Method 1
     public HashMap<Vertex, List<Vertex>> searchAllShortestRoutes(Vertex start, Vertex goal) {
@@ -184,6 +185,7 @@ public class BFSDjikstra {
         var rows = map.length;
         if (rows == 0) return new Method2ResultWithoutMaps(null, null, null, null);
         var columns = map[0].length;
+        if (rows > 1000 && columns > 1000) plusMinus = false;
 
         rowWalls = new ArrayList[rows];
         columnWalls = new ArrayList[columns];
@@ -262,10 +264,10 @@ public class BFSDjikstra {
         var wallEast = checkWallsBetweenJump(element, new Point(element.x, element.y + force + 1), map);
         var wallSouth = checkWallsBetweenJump(element, new Point(element.x + force + 1, element.y), map);
 
-        //var jumps = new int[]{force - 1, force, force + 1};
-        //if (force == 0) jumps = new int[]{force + 1};
-        //if (force == 1) jumps = new int[]{force, force + 1};
-        var jumps = new int[]{force};
+        var jumps = new int[]{force - 1, force, force + 1};
+        if (force == 0) jumps = new int[]{force + 1};
+        if (force == 1) jumps = new int[]{force, force + 1};
+        if(!plusMinus) jumps = new int[]{force};
 
         for (var jump : jumps) {
             var point = new Point(element.x, element.y + jump); //jump right
