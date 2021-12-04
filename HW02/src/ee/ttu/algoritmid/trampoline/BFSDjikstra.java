@@ -4,6 +4,11 @@ import java.util.*;
 import java.util.List;
 
 public class BFSDjikstra {
+
+    //for method 3 test
+    List<Integer>[] rowWalls;
+    List<Integer>[] columnWalls;
+
     //Method 1
     public HashMap<Vertex, List<Vertex>> searchAllShortestRoutes(Vertex start, Vertex goal) {
         if (start == null || goal == null) return null;
@@ -182,6 +187,8 @@ public class BFSDjikstra {
         if (rows == 0) return new Method2ResultWithoutMaps(null, null, null, null);;
         var columns = map[0].length;
 
+        rowWalls =  new ArrayList[rows];
+        columnWalls = new ArrayList[columns];
         //var distanceMap = new HashMap<Point, Integer>();
         //var fineMap = new HashMap<Point, Integer>();
         //var previousMap = new HashMap<Point, Point>();
@@ -200,7 +207,6 @@ public class BFSDjikstra {
         boolean found = false;
         var start = new Point(0, 0);
         var end = new Point(rows-1, columns-1);
-
 
         unvisitedQueue.add(new Point(0, 0));
         fineMap[0][0] =  getPointFine(start, map); //fineMap.put(start, getPointFine(start, map));
@@ -245,16 +251,35 @@ public class BFSDjikstra {
     private List<Point> getLandingPoints(Point element, Trampoline[][] map) {
         var jumpingPoints = new ArrayList<Point>();
 
-        //jump right
-        // do +-1 check for point out of bounds + walls
+        if (rowWalls[element.x] == null){
+            //scan from element y=0 until map end on a row
+            var listRow = new ArrayList<Integer>();
+            rowWalls[element.x] = listRow;
+            for(var y = 0; y < map[0].length; ++y){
+                if (map[element.x][y].getType() == Trampoline.Type.WALL) listRow.add(y);
+            }
+        }
+        if (columnWalls[element.y] == null){
+            //scan from element until column end, x will stay put
+            var listColumn = new ArrayList<Integer>();
+            columnWalls[element.y] = listColumn;
+            for(var x = 0; x < map.length; ++x){
+                if (map[x][element.y].getType() == Trampoline.Type.WALL) listColumn.add(x);
+            }
+        }
+
+        // 1. do +-1 check for point out of bounds + walls
         // 2. check if jumped out of bounds
         // 3. if wall, then jump to wall-1
         var trampoline =  map[element.x][element.y];
         var force = trampoline.getJumpForce();
-        var wallEast = checkWallsBetweenJump(element, new Point(element.x, element.y+ force + 1), map);
-        var wallSouth = checkWallsBetweenJump(element, new Point(element.x + force + 1, element.y), map);
-        var jumps = new int[]{force - 1, force, force + 1};
 
+        var wallEast = checkWallsBetweenJump(element, new Point(element.x, element.y + force + 1), map);
+        var wallSouth = checkWallsBetweenJump(element, new Point(element.x + force + 1, element.y), map);
+
+
+
+        var jumps = new int[]{force - 1, force, force + 1};
         if (force == 0) jumps = new int[]{force + 1};
         if (force == 1) jumps = new int[]{force, force + 1};
 
@@ -310,15 +335,29 @@ public class BFSDjikstra {
         if (toJump.y > columns - 1) toJump.y = columns - 1;
 
         if (from.x == toJump.x){
-            for (var y = from.y; y <= toJump.y; ++y){
-                if (map[from.x][y].getType() == Trampoline.Type.WALL) return new Point(from.x, y);
+            //for (var y = from.y; y <= toJump.y; ++y){
+            //    if (map[from.x][y].getType() == Trampoline.Type.WALL) return new Point(from.x, y);
+            //}
+            var rowList = rowWalls[from.x];
+            if (!(rowList == null || rowList.isEmpty())){
+                //check if wall between from.y - toJump.y
+                var indexBegin = Collections.binarySearch(rowList, from.y);
+                var indexEnd = Collections.binarySearch(rowList, toJump.y);
+                if (indexBegin != indexEnd) return new Point (from.x, rowList.get(indexBegin + 1));
             }
         }
 
         //jumping left y=y
         if (from.y == toJump.y){
-            for (var x = from.x; x <= toJump.x; ++x){
-                if (map[x][from.y].getType() == Trampoline.Type.WALL) return new Point(x, from.y);
+            //for (var x = from.x; x <= toJump.x; ++x){
+            //    if (map[x][from.y].getType() == Trampoline.Type.WALL) return new Point(x, from.y);
+            //}
+            var columnList = columnWalls[from.y];
+            if(!(columnList == null || columnList.isEmpty())){
+                //check if wall between - begin from.x; end toJump.x
+                var indexBegin = Collections.binarySearch(columnList, from.x);
+                var indexEnd = Collections.binarySearch(columnList, toJump.x);
+                if (indexBegin != indexEnd) return new Point(columnList.get(indexBegin + 1), from.y);
             }
         }
 
