@@ -138,12 +138,12 @@ public class BFSMatrix {
         return getAccumulatedDistance(point) == -1;
     }
 
-    private int getAccumulatedDistance(Point point) {
+    private Integer getAccumulatedDistance(Point point) {
         if (point == null) return 0;
         return distanceMap[point.x][point.y];
     }
 
-    private int getAccumulatedFine(Point point) {
+    private Integer getAccumulatedFine(Point point) {
         if (point == null) return 0;
         return fineMap[point.x][point.y];
     }
