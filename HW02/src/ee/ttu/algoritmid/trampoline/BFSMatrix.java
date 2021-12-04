@@ -13,8 +13,6 @@ public class BFSMatrix {
 
     //Method 2 (search uses HashMaps)
     public Method2Result straightSearch(Trampoline[][] map) {
-        long timerStart = System.currentTimeMillis();
-
         if (map == null) return new Method2Result(null, null, null, null);
 
         var rows = map.length;
@@ -60,10 +58,8 @@ public class BFSMatrix {
                     }
                 }
             }
-            //distance = distance + 1;
         }
         var totalFine = fineMap.get(end);
-        System.out.println("straightSearch took " + (System.currentTimeMillis() - timerStart));
         var r = new Method2Result(previousMap, totalFine, end, start);
         return r;
     }
@@ -98,6 +94,7 @@ public class BFSMatrix {
 
             var children = getLandingPoints(point, map); //get landing points for element
             var fine = getAccumulatedFine(point);
+            children.stream().sorted(Collections.reverseOrder());
 
             for (var child : children) {
                 var newChildDistance = getAccumulatedDistance(point) + 1;
