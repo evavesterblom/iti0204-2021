@@ -8,7 +8,7 @@ public class BFSDjikstra {
     //for method 3 test
     List<Integer>[] rowWalls;
     List<Integer>[] columnWalls;
-    boolean plusMinus = true;
+    boolean plusMinus = false;
 
     //Method 1
     public HashMap<Vertex, List<Vertex>> searchAllShortestRoutes(Vertex start, Vertex goal) {
