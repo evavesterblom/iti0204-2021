@@ -51,7 +51,7 @@ public class HW02 implements TrampolineCenter {
 
 
         //Method 2 - without graphs, using matrices
-        /*BFSMatrix bfs = new BFSMatrix();
+        BFSMatrix bfs = new BFSMatrix();
         var res = bfs.straightSearchWithoutMaps(map);
         return new Result() {
             @Override
@@ -65,11 +65,8 @@ public class HW02 implements TrampolineCenter {
             }
         };
 
-         */
-
-
         // Method 3
-        DFS dfs = new DFS();
+       /* DFS dfs = new DFS();
         var res = dfs.search(map);
         return new Result() {
             @Override
@@ -81,7 +78,7 @@ public class HW02 implements TrampolineCenter {
             public int getTotalFine() {
                 return res.totalFine;
             }
-        };
+        };*/
 
 
 
