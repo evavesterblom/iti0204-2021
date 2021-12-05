@@ -10,7 +10,7 @@ public class BFSGraph {
 
         var unvisitedQueue = new ArrayList<Vertex>();
         var distanceMap = new HashMap<Vertex, Integer>();
-        var previousMap = new HashMap<Vertex, List<Vertex>>();
+        var routeMap = new HashMap<Vertex, List<Vertex>>();
         var distance = 0;
         var found = false;
 
@@ -30,10 +30,10 @@ public class BFSGraph {
                         distanceMap.put(v, distance);
                         var list = new ArrayList<Vertex>();
                         list.add(element);
-                        previousMap.put(v, list);
+                        routeMap.put(v, list);
                         unvisitedQueue.add(v);
                     } else if (distance == distanceMap.get(v)) {
-                        previousMap.get(v).add(element);
+                        routeMap.get(v).add(element);
                     }
 
                     if (!distanceMap.containsKey(v)) {
@@ -43,7 +43,7 @@ public class BFSGraph {
             }
             distance = distance + 1;
         }
-        return previousMap;
+        return routeMap;
     }
 
     public HashMap<Vertex, Vertex> searchRouteLowestFine(Vertex start, Vertex goal, HashMap<Vertex, List<Vertex>> routes) {
@@ -51,7 +51,7 @@ public class BFSGraph {
 
         var unvisitedQueue = new ArrayList<Vertex>();
         var fineMap = new HashMap<Vertex, Integer>();
-        var previousMap = new HashMap<Vertex, Vertex>();
+        var routeMap = new HashMap<Vertex, Vertex>();
         var found = false;
 
         unvisitedQueue.add(start);
@@ -70,25 +70,25 @@ public class BFSGraph {
 
                         if (!fineMap.containsKey(v) || fine < fineMap.get(v)) {
                             fineMap.put(v, fine);
-                            previousMap.put(v, element);
+                            routeMap.put(v, element);
                             unvisitedQueue.add(v);
                         }
                     }
                 }
             }
         }
-        return previousMap;
+        return routeMap;
     }
 
-    public List<Vertex> reverseRoute(HashMap<Vertex, Vertex> previousMap, Vertex source, Vertex goal) {
-        if (previousMap == null || source == null || goal == null) return null;
+    public List<Vertex> reverseRoute(HashMap<Vertex, Vertex> routeMap, Vertex source, Vertex goal) {
+        if (routeMap == null || source == null || goal == null) return null;
 
         var result = new LinkedList<Vertex>();
         var v = goal;
-        if (previousMap.containsKey(goal) || source == goal) {
-            while (previousMap.containsKey(v)) {
+        if (routeMap.containsKey(goal) || source == goal) {
+            while (routeMap.containsKey(v)) {
                 result.push(v);
-                v = previousMap.get(v);
+                v = routeMap.get(v);
             }
             result.push(source);
         }

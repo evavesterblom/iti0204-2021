@@ -147,7 +147,7 @@ public class HW02Test {
 
     @Test
     public void testPerformance() {
-        var trampoline = forceMapToTrampoline(createMap(2000, 2000));
+        var trampoline = forceMapToTrampoline(createMap(2000, 2000, "2"));
         var actualResult = solution.play(trampoline);
 
         assertTrue(actualResult.getJumps().size() > 0);
@@ -206,12 +206,12 @@ public class HW02Test {
         return false;
     }
 
-    private String[][] createMap(int rows, int cols) {
+    private String[][] createMap(int rows, int cols, String valueToSet) {
         String[][] map = new String[rows][cols];
 
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[0].length; j++) {
-                map[i][j] = "1";
+                map[i][j] = valueToSet;
             }
         }
         map[rows - 1][cols - 1] = "0";

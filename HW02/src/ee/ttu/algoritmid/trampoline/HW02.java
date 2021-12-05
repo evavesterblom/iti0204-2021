@@ -7,13 +7,13 @@ public class HW02 implements TrampolineCenter {
 
     @Override
     public Result play(Trampoline[][] map) {
-        /* Method 1 - graphs, using HashMaps
-        Graph graph = new Graph();
+        // Method 1 - graphs, using HashMaps
+        /*Graph graph = new Graph();
         graph.createGraph(map);
         var start = graph.getStartVertex();
         var end = graph.getEndVertex();
 
-        BFSGraphs bfs = new BFSGraphs();
+        BFSGraph bfs = new BFSGraph();
         var shortestRoutes = bfs.searchAllShortestRoutes(start, end);
         var routeWithLowestFine = bfs.searchRouteLowestFine(end, start, shortestRoutes);
         var finalRoute = bfs.getRoute(routeWithLowestFine, start, end);
@@ -32,8 +32,9 @@ public class HW02 implements TrampolineCenter {
         };
          */
 
-        /* Method 2 - without graphs, using HashMaps
-        BFSOptimized bfs = new BFSOptimized();
+
+        //Method 2 - without graphs, using HashMaps
+        /*BFSMatrix bfs = new BFSMatrix();
         var res = bfs.straightSearch(map);
         return new Result() {
             @Override
@@ -48,8 +49,9 @@ public class HW02 implements TrampolineCenter {
         };
          */
 
+
         //Method 2 - without graphs, using matrices
-        BFSMatrix bfs = new BFSMatrix();
+        /*BFSMatrix bfs = new BFSMatrix();
         var res = bfs.straightSearchWithoutMaps(map);
         return new Result() {
             @Override
@@ -63,9 +65,11 @@ public class HW02 implements TrampolineCenter {
             }
         };
 
+         */
+
 
         // Method 3
-        /*DFS dfs = new DFS();
+        DFS dfs = new DFS();
         var res = dfs.search(map);
         return new Result() {
             @Override
@@ -78,7 +82,11 @@ public class HW02 implements TrampolineCenter {
                 return res.totalFine;
             }
         };
-         */
+
+
+
+
+
     }
 
     private List<String> routeToJumps(List<Vertex> route, Vertex end) {

@@ -7,7 +7,9 @@ public class DFS {
     List<Integer>[] columnWalls;
     boolean plusMinus = true;
 
-    public Method2ResultWithoutMaps search(Trampoline[][] map){
+    public Method2ResultWithoutMaps search(Trampoline[][] map) {
+        var startTime = System.currentTimeMillis();
+
         if (map == null) return new Method2ResultWithoutMaps(null, null, null, null);
 
         var rows = map.length;
@@ -19,75 +21,52 @@ public class DFS {
         columnWalls = new ArrayList[columns];
         var start = new Point(0, 0);
         var end = new Point(rows - 1, columns - 1);
-        var stack = new Stack<PointPair>();
-        var bestDistance = Integer.MAX_VALUE;
-        var bestFine = Integer.MAX_VALUE;
+        var stack = new Stack<Point>();
 
         var distanceMap = new Integer[rows][columns];
         var fineMap = new Integer[rows][columns];
         var previousMap = new Point[rows][columns];
 
-        fineMap[0][0] = getTrampolineFine(start, map);
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[0].length; j++) {
                 distanceMap[i][j] = -1;
             }
         }
 
-        //while
-        stack.push(new PointPair(start, null));
-        while(!stack.isEmpty()){
-            var pair = stack.pop();
-            var point = pair.point;
-            var parent = pair.parent;
-            var newElementDistance = getDistance(parent, distanceMap) + 1;
-            var newFine = getFine(parent, fineMap) + getTrampolineFine(point, map);
+        stack.push(start);
+        updateDistance(start, 0, distanceMap);
+        updateFine(start, getTrampolineFine(start, map), fineMap);
+        boolean found = false;
+        while (!stack.isEmpty()) {
+            var point = stack.pop();
+            var currentDistance = getDistance(point, distanceMap);
+            var currentFine = getFine(point, fineMap);
+            var childDistance = currentDistance + 1;
 
-            if (point == end){
-                bestDistance = newElementDistance;
-                bestFine = newFine;
+            if (found && childDistance > getDistance(end, distanceMap)) continue;
+            if (point == end) {
+                found = true;
             }
 
-            //unvisited
-            if(distanceMap[point.x][point.y] == -1){
-                updateDistance(point, newElementDistance, distanceMap);
-
-                var children = getLandingPoints(point, map);
-                var childDistance = newElementDistance + 1;
-
-                for (var child : children){
-                    var newChildFine = newFine + getTrampolineFine(child, map);
-
-                    if(notVisited(child, distanceMap)) {
-                        stack.push(new PointPair(child, point));
+            var children = getLandingPoints(point, map);
+            for (var child : children) {
+                var newChildFine = currentFine + getTrampolineFine(child, map);
+                if (notVisited(child, distanceMap) || childDistance < getDistance(child, distanceMap)) {
+                    stack.push(child);
+                    updateParent(child, point, previousMap);
+                    updateFine(child, newChildFine, fineMap);
+                    updateDistance(child, childDistance, distanceMap);
+                }
+                else if (childDistance == getDistance(child, distanceMap)) {
+                    if (newChildFine < getFine(child, fineMap)) {
                         updateParent(child, point, previousMap);
                         updateFine(child, newChildFine, fineMap);
+                        stack.push(child);
                     }
-                    else if(childDistance < getDistance(child, distanceMap)){
-                        updateParent(child, point, previousMap);
-                        updateDistance(child, childDistance , distanceMap);
-                    }
-                    else if(childDistance == getDistance(child, distanceMap)){
-                        if (newChildFine < getFine(child, fineMap)){
-                            updateParent(child, point, previousMap);
-                            updateFine(child, newChildFine, fineMap);
-                        }
-                    }
-                }
-            }
-            else if (newElementDistance < getDistance(point, distanceMap)){
-                updateDistance(point, newElementDistance, distanceMap);
-                updateParent(point, parent, previousMap);
-                updateFine(point, newFine, fineMap);
-                // update children again?
-            }
-            else if (newElementDistance == getDistance(point, distanceMap)){
-                if(newFine < getFine(point, fineMap)){
-                    updateFine(point, newFine, fineMap);
-                    updateParent(point, parent, previousMap);
                 }
             }
         }
+        System.out.println("DFS search took " + (System.currentTimeMillis() - startTime));
         return new Method2ResultWithoutMaps(previousMap, getFine(end, fineMap), end, start);
     }
 
@@ -151,7 +130,7 @@ public class DFS {
         var jumps = new int[]{force - 1, force, force + 1};
         if (force == 0) jumps = new int[]{force + 1};
         if (force == 1) jumps = new int[]{force, force + 1};
-        if(!plusMinus) jumps = new int[]{force};
+        if (!plusMinus) jumps = new int[]{force};
 
         for (var jump : jumps) {
             var point = new Point(element.x, element.y + jump); //jump right
@@ -235,7 +214,7 @@ public class DFS {
         public Point point;
         public Point parent;
 
-        public PointPair(Point point, Point parent){
+        public PointPair(Point point, Point parent) {
             this.point = point;
             this.parent = parent;
         }

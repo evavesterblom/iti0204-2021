@@ -13,15 +13,19 @@ public class BFSMatrix {
 
     //Method 2 (search uses HashMaps)
     public Method2Result straightSearch(Trampoline[][] map) {
+        var startTime = System.currentTimeMillis();
         if (map == null) return new Method2Result(null, null, null, null);
 
         var rows = map.length;
         if (rows == 0) return new Method2Result(null, null, null, null);
         var columns = map[0].length;
 
+        rowWalls = new ArrayList[rows];
+        columnWalls = new ArrayList[columns];
+
         var distanceMap = new HashMap<Point, Integer>();
         var fineMap = new HashMap<Point, Integer>();
-        var previousMap = new HashMap<Point, Point>();
+        var routeMap = new HashMap<Point, Point>();
 
         var unvisitedQueue = new ArrayDeque<Point>();
         boolean found = false;
@@ -29,7 +33,7 @@ public class BFSMatrix {
         var end = new Point(rows - 1, columns - 1);
 
 
-        unvisitedQueue.add(new Point(0, 0));
+        unvisitedQueue.add(start);
         fineMap.put(start, getTrampolineFine(start));
         distanceMap.put(start, 0);
 
@@ -47,12 +51,12 @@ public class BFSMatrix {
                 var newFine = fine + getTrampolineFine(jumpLocation);
                 if (!distanceMap.containsKey(jumpLocation) || newDistance < distanceMap.get(jumpLocation)) {
                     distanceMap.put(jumpLocation, newDistance);
-                    previousMap.put(jumpLocation, element);
+                    routeMap.put(jumpLocation, element);
                     unvisitedQueue.add(jumpLocation);
                     fineMap.put(jumpLocation, newFine);
                 } else if (newDistance == distanceMap.get(jumpLocation)) {
                     if (!fineMap.containsKey(jumpLocation) || newFine < fineMap.get(jumpLocation)) {
-                        previousMap.put(jumpLocation, element);
+                        routeMap.put(jumpLocation, element);
                         unvisitedQueue.add(jumpLocation);
                         fineMap.put(jumpLocation, newFine);
                     }
@@ -60,12 +64,13 @@ public class BFSMatrix {
             }
         }
         var totalFine = fineMap.get(end);
-        var r = new Method2Result(previousMap, totalFine, end, start);
-        return r;
+        System.out.println("BFS straightSearch took " + (System.currentTimeMillis() - startTime));
+        return new Method2Result(routeMap, totalFine, end, start);
     }
 
     //Method 2 optimized (uses plain matrices)
     public Method2ResultWithoutMaps straightSearchWithoutMaps(Trampoline[][] map) {
+        var startTime = System.currentTimeMillis();
         this.trampolineMap = map;
         if (map == null) return new Method2ResultWithoutMaps(null, null, null, null);
         var rows = map.length;
@@ -88,11 +93,12 @@ public class BFSMatrix {
         var unvisitedQueue = new LinkedList<Point>();
 
         unvisitedQueue.add(start);
-        while (!unvisitedQueue.isEmpty() && !found) {
+        while (!unvisitedQueue.isEmpty() && !found) { //looking at point and it's children
+
             var point = unvisitedQueue.poll();
             if (point.equals(end)) found = true;
 
-            var children = getLandingPoints(point, map); //get landing points for element
+            var children = getLandingPoints(point, map); //where to jump
             var fine = getAccumulatedFine(point);
             var newChildDistance = getAccumulatedDistance(point) + 1;
 
@@ -107,7 +113,7 @@ public class BFSMatrix {
                     updateFine(child, newChildFine);
                     unvisitedQueue.add(child);
 
-                } else if (newChildFine < currentChildFine && newChildDistance == currentChildDistance) { //same distance but better newChildDistance == currentChildDistance && newChildFine < currentChildFine
+                } else if (newChildFine < currentChildFine && newChildDistance == currentChildDistance) { //same distance but better
                     updateRoute(child, point);
                     updateFine(child, newChildFine);
                     unvisitedQueue.add(child);
@@ -115,6 +121,7 @@ public class BFSMatrix {
             }
         }
         var totalFine = getAccumulatedFine(end);
+        System.out.println("BFS straightSearchWithoutMaps took " + (System.currentTimeMillis() - startTime));
         return new Method2ResultWithoutMaps(previousMap, totalFine, end, start);
     }
 
@@ -254,6 +261,7 @@ public class BFSMatrix {
     private boolean checkIfOutOfBounds(Point point, Trampoline[][] map) {
         var rows = map.length;
         var columns = map[0].length;
+
         if (point.x > rows - 1) return true;
         if (point.y > columns - 1) return true;
         if (point.x < 0) return true;

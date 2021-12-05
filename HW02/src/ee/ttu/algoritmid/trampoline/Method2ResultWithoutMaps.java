@@ -26,7 +26,7 @@ public class Method2ResultWithoutMaps {
     }
 
     private List<String> convertRouteMapToStrings(Point[][] bestRouteMap, Point goal, Point source) {
-        //var timerStart = System.currentTimeMillis();
+        var timerStart = System.currentTimeMillis();
 
         if (bestRouteMap == null) return null;
 
@@ -46,7 +46,7 @@ public class Method2ResultWithoutMaps {
     }
 
     private List<String> routeToJumps(List<Point> route, Point end) {
-        //var timerStart = System.currentTimeMillis();
+        var timerStart = System.currentTimeMillis();
 
         var jumps = new ArrayList<String>();
         if (route == null || end == null) return jumps;
@@ -63,7 +63,7 @@ public class Method2ResultWithoutMaps {
 
             if (next == end) break;
         }
-        //System.out.println("routeToJumps took " + (System.currentTimeMillis()-timerStart));
+        System.out.println("routeToJumps took " + (System.currentTimeMillis()-timerStart));
         return jumps;
     }
 
