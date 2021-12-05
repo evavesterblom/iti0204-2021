@@ -56,13 +56,10 @@ public class DFS {
                     updateParent(child, point, previousMap);
                     updateFine(child, newChildFine, fineMap);
                     updateDistance(child, childDistance, distanceMap);
-                }
-                else if (childDistance == getDistance(child, distanceMap)) {
-                    if (newChildFine < getFine(child, fineMap)) {
-                        updateParent(child, point, previousMap);
-                        updateFine(child, newChildFine, fineMap);
-                        stack.push(child);
-                    }
+                } else if (newChildFine < getFine(child, fineMap) && childDistance == getDistance(child, distanceMap)) {
+                    updateParent(child, point, previousMap);
+                    updateFine(child, newChildFine, fineMap);
+                    stack.push(child);
                 }
             }
         }
