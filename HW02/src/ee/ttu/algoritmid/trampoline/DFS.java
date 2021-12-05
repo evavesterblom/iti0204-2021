@@ -8,8 +8,6 @@ public class DFS {
     boolean plusMinus = true;
 
     public Method2ResultWithoutMaps search(Trampoline[][] map) {
-        var startTime = System.currentTimeMillis();
-
         if (map == null) return new Method2ResultWithoutMaps(null, null, null, null);
 
         var rows = map.length;
@@ -63,7 +61,6 @@ public class DFS {
                 }
             }
         }
-        System.out.println("DFS search took " + (System.currentTimeMillis() - startTime));
         return new Method2ResultWithoutMaps(previousMap, getFine(end, fineMap), end, start);
     }
 

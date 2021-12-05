@@ -30,7 +30,6 @@ public class Method2ResultWithoutMaps {
 
         var result = new LinkedList<Point>();
         var v = goal;
-        //if (bestRouteMap.containsKey(goal) || source == goal) {
         if (bestRouteMap[goal.x][goal.y] != null || source == goal) {
             while (bestRouteMap[v.x][v.y] != null) {
                 result.push(v);
