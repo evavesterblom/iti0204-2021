@@ -50,7 +50,7 @@ public class HW02 implements TrampolineCenter {
          */
 
 
-        //Method 2 - without graphs, using matrices
+        //Method 3 - without graphs, using matrices
         BFSMatrix bfs = new BFSMatrix();
         var res = bfs.straightSearchWithoutMaps(map);
         return new Result() {
@@ -65,7 +65,7 @@ public class HW02 implements TrampolineCenter {
             }
         };
 
-        // Method 3
+        // Method 4
        /* DFS dfs = new DFS();
         var res = dfs.search(map);
         return new Result() {

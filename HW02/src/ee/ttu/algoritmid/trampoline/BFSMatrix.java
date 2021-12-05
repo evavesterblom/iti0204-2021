@@ -70,7 +70,6 @@ public class BFSMatrix {
 
     //Method 2 optimized (uses plain matrices)
     public Method2ResultWithoutMaps straightSearchWithoutMaps(Trampoline[][] map) {
-        //var startTime = System.currentTimeMillis();
         this.trampolineMap = map;
         if (map == null) return new Method2ResultWithoutMaps(null, null, null, null);
         var rows = map.length;
@@ -121,7 +120,6 @@ public class BFSMatrix {
             }
         }
         var totalFine = getAccumulatedFine(end);
-        //System.out.println("BFS straightSearchWithoutMaps took " + (System.currentTimeMillis() - startTime));
         return new Method2ResultWithoutMaps(previousMap, totalFine, end, start);
     }
 
