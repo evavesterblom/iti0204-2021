@@ -30,7 +30,7 @@ public class AL07 {
         try {disjointSubsets.find(name2);}
         catch (Exception e) {addPerson(name2);}
 
-        if (!(memberOfNetwork(name1) == Network.UNKNOWN && memberOfNetwork(name2) == Network.UNKNOWN))
+        //if (!(memberOfNetwork(name1) == Network.UNKNOWN && memberOfNetwork(name2) == Network.UNKNOWN))
             disjointSubsets.union(name1, name2);
     }
 
