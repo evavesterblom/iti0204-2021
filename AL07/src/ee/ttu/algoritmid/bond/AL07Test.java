@@ -19,8 +19,19 @@ class AL07Test {
     void testFriendlyPersonTalksToStranger_BecomesFriendly(){
         AL07 solution = new AL07();
         solution.addPerson("U");
-        //solution.addPerson("V");
         solution.friendly("U");
+        solution.talkedToEachOther("U", "V");
+        var actual = solution.memberOfNetwork("V");
+
+        assertEquals(AL07.Network.FRIENDLY, actual);
+    }
+
+    @Test
+    void testFriendlyPersonTalksToStranger_BecomesFriendly2(){
+        AL07 solution = new AL07();
+        solution.addPerson("U");
+        solution.friendly("U");
+        solution.addPerson("V");
         solution.talkedToEachOther("U", "V");
         var actual = solution.memberOfNetwork("V");
 

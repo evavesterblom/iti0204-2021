@@ -17,10 +17,15 @@ public class AL07 {
     }
 
     public void talkedToEachOther(String name1, String name2) {
-        if (memberOfNetwork(name1) == Network.UNKNOWN) disjointSubsets.addSubset(name1);
-        if (memberOfNetwork(name2) == Network.UNKNOWN) disjointSubsets.addSubset(name2);
+        Network network;
+        if (memberOfNetwork(name1) == null && memberOfNetwork(name2) != null) addNetwork(name1, memberOfNetwork(name2));
+        if (memberOfNetwork(name2) == null && memberOfNetwork(name1) != null) addNetwork(name2, memberOfNetwork(name1));
         disjointSubsets.union(name1, name2);
 
+    }
+
+    private void addNetwork(String name, Network network){
+        disjointSubsets.setNetwork(name, network);
     }
 
     public void addPerson(String name) {
