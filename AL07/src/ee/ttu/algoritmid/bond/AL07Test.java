@@ -34,9 +34,10 @@ class AL07Test {
         solution.addPerson("U2");
         solution.addPerson("U3");
         solution.friendly("U");
-        solution.talkedToEachOther("U2", "U");
+        solution.talkedToEachOther("U2", "U3");
+        solution.talkedToEachOther("U3", "U");
         //solution.talkedToEachOther("V", "U");
-        solution.talkedToEachOther("U", "V");
+        solution.talkedToEachOther("V", "U");
         var actual = solution.memberOfNetwork("V");
 
         assertEquals(AL07.Network.FRIENDLY, actual);

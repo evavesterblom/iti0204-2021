@@ -1,5 +1,7 @@
 package ee.ttu.algoritmid.bond;
 
+import java.util.HashMap;
+
 public class AL07 {
 
     public enum Network {
@@ -7,9 +9,12 @@ public class AL07 {
     }
 
     private DisjointSubsets disjointSubsets = new DisjointSubsets();
+    private HashMap<String, String> unknownPersons = new HashMap<>();
 
     public AL07() {
         // don't remove
+        disjointSubsets.addSubset(Network.FRIENDLY.toString());
+        disjointSubsets.addSubset(Network.UNFRIENDLY.toString());
     }
 
     public DisjointSubsets getDisjointSubsets() {
@@ -23,11 +28,7 @@ public class AL07 {
         try {disjointSubsets.find(name2);}
         catch (Exception e) {addPerson(name2);}
 
-        // Leia tyyp
-        // Unionit tehes eelistame seda, kellel on tyyp mitte unknown.
-        var name1Type = memberOfNetwork(name1);
-        if (name1Type == Network.UNKNOWN) disjointSubsets.union(name2, name1);
-        else disjointSubsets.union(name1, name2);
+        disjointSubsets.union(name1, name2);
     }
 
     public void addPerson(String name) {
@@ -37,16 +38,19 @@ public class AL07 {
     public void friendly(String name) {
         try {disjointSubsets.find(name);}
         catch (Exception e) {addPerson(name);}
-        disjointSubsets.setNetwork(name, Network.FRIENDLY);
+        disjointSubsets.union(name, Network.FRIENDLY.toString());
     }
 
     public void unfriendly(String name) {
         try {disjointSubsets.find(name);}
         catch (Exception e) {addPerson(name);}
-        disjointSubsets.setNetwork(name, Network.UNFRIENDLY);
+        disjointSubsets.union(name, Network.UNFRIENDLY.toString());
     }
 
     public Network memberOfNetwork(String name) {
-        return disjointSubsets.getNetwork(name);
+        var parent = disjointSubsets.find(name);
+        if (parent.equals(name)) return Network.UNKNOWN;
+
+        return Network.valueOf(parent);
     }
 }

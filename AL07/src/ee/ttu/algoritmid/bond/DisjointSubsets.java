@@ -6,7 +6,6 @@ public class DisjointSubsets {
 
     private TreeMap<String, String> parent = new TreeMap<>(); //<key, parent>
     private TreeMap<String, Integer> rank = new TreeMap<>(); //<key, rank>
-    private TreeMap<String, AL07.Network> network = new TreeMap<>(); //<key, networkType>
 
     public String find(String element) throws IllegalArgumentException {
         if (!(parent.containsKey(element))) throw new IllegalArgumentException("find: the element is not present");
@@ -30,17 +29,14 @@ public class DisjointSubsets {
 
         if (rank.get(rootOfElement1) > rank.get(rootOfElement2)){ //attach a smaller depth under the root of the bigger tree
             parent.put(rootOfElement2, rootOfElement1);
-            network.put(element2, network.get(rootOfElement1));
         }
-        if (rank.get(rootOfElement1) < rank.get(rootOfElement2)){
+        else if (rank.get(rootOfElement1) < rank.get(rootOfElement2)){
             parent.put(rootOfElement1, rootOfElement2);
-            network.put(element1, network.get(rootOfElement2));
         }
         else
         {
             parent.put(rootOfElement1, rootOfElement2);
             rank.put(rootOfElement2, rank.get(rootOfElement2) + 1);
-            network.put(element2, network.get(rootOfElement1));
         }
     }
 
@@ -48,18 +44,5 @@ public class DisjointSubsets {
         if(parent.containsKey(element)) throw new IllegalArgumentException("addSubset: element is already present");
         parent.put(element, element);
         rank.put(element, 0);
-        network.put(element, AL07.Network.UNKNOWN);
-    }
-
-
-    public AL07.Network getNetwork(String element){
-        if (network.containsKey(element)){
-            return network.get(element);
-        }
-        return null;
-    }
-
-    public void setNetwork(String element, AL07.Network networkType){
-        network.put(element, networkType);
     }
 }
