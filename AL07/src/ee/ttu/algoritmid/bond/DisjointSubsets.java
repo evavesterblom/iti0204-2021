@@ -39,8 +39,18 @@ public class DisjointSubsets {
             rank.put(rootOfElement2, rank.get(rootOfElement2) + 1);
         }
 
-        network.put(element1, network.get(rootOfElement1));
-        network.put(element2, network.get(rootOfElement2));
+        if (!network.containsKey(element1) && network.containsKey(rootOfElement1)) {
+            network.put(element1, network.get(rootOfElement1));
+        }
+        if (!network.containsKey(element2) && network.containsKey(rootOfElement2)) {
+            network.put(element2, network.get(rootOfElement2));
+        }
+        if (!network.containsKey(element1) && network.containsKey(element2)){
+            network.put(element1, network.get(element2));
+        }
+        if (!network.containsKey(element2) && network.containsKey(element1)){
+            network.put(element2, network.get(element1));
+        }
     }
 
     public void addSubset(String element) throws IllegalArgumentException {
