@@ -27,19 +27,19 @@ public class AL07 {
 
     }
 
-    private void addNetwork(String name, Network network){
-        disjointSubsets.setNetwork(name, network);
-    }
-
     public void addPerson(String name) {
         disjointSubsets.addSubset(name);
     }
 
     public void friendly(String name) {
+        try {disjointSubsets.find(name);}
+        catch (Exception e) {addPerson(name);}
         disjointSubsets.setNetwork(name, Network.FRIENDLY);
     }
 
     public void unfriendly(String name) {
+        try {disjointSubsets.find(name);}
+        catch (Exception e) {addPerson(name);}
         disjointSubsets.setNetwork(name, Network.UNFRIENDLY);
     }
 

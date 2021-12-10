@@ -38,4 +38,27 @@ class AL07Test {
         assertEquals(AL07.Network.FRIENDLY, actual);
     }
 
+
+    @Test
+    void testFriendlyPersons(){
+        AL07 solution = new AL07();
+        solution.addPerson("U");
+        solution.addPerson("V");
+        solution.addPerson("UU");
+        solution.addPerson("VV");
+        solution.friendly("U");
+        var actual = solution.memberOfNetwork("VV");
+
+        assertEquals(AL07.Network.UNKNOWN, actual);
+    }
+
+    @Test
+    void testFriendly_NoAdd(){
+        AL07 solution = new AL07();
+        solution.friendly("P");
+        var actual = solution.memberOfNetwork("P");
+
+        assertEquals(AL07.Network.FRIENDLY, actual);
+    }
+
 }

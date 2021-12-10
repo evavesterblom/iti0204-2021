@@ -41,9 +41,6 @@ public class DisjointSubsets {
             rank.put(rootOfElement2, rank.get(rootOfElement2) + 1);
             network.put(element2, network.get(rootOfElement1));
         }
-
-        //network
-
     }
 
     public void addSubset(String element) throws IllegalArgumentException {
@@ -52,6 +49,7 @@ public class DisjointSubsets {
         rank.put(element, 0);
         network.put(element, AL07.Network.UNKNOWN);
     }
+
 
     public AL07.Network getNetwork(String element){
         if (network.containsKey(element)){
@@ -63,5 +61,4 @@ public class DisjointSubsets {
     public void setNetwork(String element, AL07.Network networkType){
         network.put(element, networkType);
     }
-
 }
