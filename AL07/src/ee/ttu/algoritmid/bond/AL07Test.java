@@ -61,4 +61,13 @@ class AL07Test {
         assertEquals(AL07.Network.FRIENDLY, actual);
     }
 
+    @Test
+    void testUnFriendly_NoAdd(){
+        AL07 solution = new AL07();
+        solution.unfriendly("UN");
+        var actual = solution.memberOfNetwork("UN");
+
+        assertEquals(AL07.Network.UNFRIENDLY, actual);
+    }
+
 }

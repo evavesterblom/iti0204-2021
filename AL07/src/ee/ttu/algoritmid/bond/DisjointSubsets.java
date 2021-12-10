@@ -9,9 +9,10 @@ public class DisjointSubsets {
     private TreeMap<String, AL07.Network> network = new TreeMap<>(); //<key, networkType>
 
     public String find(String element) throws IllegalArgumentException {
-        if (!(parent.containsKey(element))) throw new IllegalArgumentException("find:  the element is not present");
-        if (parent.get(element) != element){
-            parent.put(element, find(parent.get(element))); //compression
+        if (!(parent.containsKey(element))) throw new IllegalArgumentException("find: the element is not present");
+        var parentElement = parent.get(element);
+        if (!parentElement.equals(element)){
+            parent.put(element, find(parentElement)); //compression
         }
         return parent.get(element);
     }

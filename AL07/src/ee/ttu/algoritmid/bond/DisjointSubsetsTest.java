@@ -52,5 +52,23 @@ class DisjointSubsetsTest {
         assertEquals("5", ds.find("5"));
     }
 
+    @Test
+    void testFindRecurision() {
+        DisjointSubsets ds = new DisjointSubsets();
+        AL07 al07 = new AL07();
+        List<String> list = new ArrayList<>();
+
+        for (int i = 0 ; i < 100; ++i){
+            list.add("A" + i);
+            ds.addSubset("A" + i);
+        }
+
+        ds.addSubset("A100");
+        ds.union("A100", "A99");
+
+        var test = ds.find("A17");
+        var t = "stop";
+    }
+
 
 }
