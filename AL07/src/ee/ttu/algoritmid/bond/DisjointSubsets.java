@@ -1,11 +1,12 @@
 package ee.ttu.algoritmid.bond;
 
+import java.util.HashMap;
 import java.util.TreeMap;
 
 public class DisjointSubsets {
 
-    private TreeMap<String, String> parent = new TreeMap<>(); //<key, parent>
-    private TreeMap<String, Integer> rank = new TreeMap<>(); //<key, rank>
+    private HashMap<String, String> parent = new HashMap<>(); //<key, parent>
+    private HashMap<String, Integer> rank = new HashMap<>(); //<key, rank>
 
     public String find(String element) throws IllegalArgumentException {
         if (!(parent.containsKey(element))) throw new IllegalArgumentException("find: the element is not present");
