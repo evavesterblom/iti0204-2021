@@ -28,7 +28,8 @@ public class AL07 {
         try {disjointSubsets.find(name2);}
         catch (Exception e) {addPerson(name2);}
 
-        disjointSubsets.union(name1, name2);
+        if (!(memberOfNetwork(name1) == Network.UNKNOWN && memberOfNetwork(name2) == Network.UNKNOWN))
+            disjointSubsets.union(name1, name2);
     }
 
     public void addPerson(String name) {
