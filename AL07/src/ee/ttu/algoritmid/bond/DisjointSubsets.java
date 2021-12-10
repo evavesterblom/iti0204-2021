@@ -60,7 +60,7 @@ public class DisjointSubsets {
     }
 
     public AL07.Network getNetwork(String element){
-        if (!network.containsKey(element)){
+        if (network.containsKey(element)){
             return network.get(element);
         }
         return AL07.Network.UNKNOWN;
