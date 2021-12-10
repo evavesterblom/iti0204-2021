@@ -17,6 +17,8 @@ public class AL07 {
     }
 
     public void talkedToEachOther(String name1, String name2) {
+        if (memberOfNetwork(name1) == Network.UNKNOWN) disjointSubsets.addSubset(name1);
+        if (memberOfNetwork(name2) == Network.UNKNOWN) disjointSubsets.addSubset(name2);
         disjointSubsets.union(name1, name2);
     }
 
