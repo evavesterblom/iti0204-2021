@@ -15,6 +15,8 @@ public class AL07 {
         // don't remove
         disjointSubsets.addSubset(Network.FRIENDLY.toString());
         disjointSubsets.addSubset(Network.UNFRIENDLY.toString());
+        talkedToEachOther("A", Network.FRIENDLY.toString());
+        talkedToEachOther("U", Network.UNFRIENDLY.toString());
     }
 
     public DisjointSubsets getDisjointSubsets() {
