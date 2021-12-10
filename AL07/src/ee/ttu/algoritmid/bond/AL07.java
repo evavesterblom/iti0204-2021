@@ -17,11 +17,11 @@ public class AL07 {
     }
 
     public void talkedToEachOther(String name1, String name2) {
-        // TODO
+        getDisjointSubsets().union(name1, name2);
     }
 
     public void addPerson(String name) {
-        // TODO
+        getDisjointSubsets().addSubset(name);
     }
 
     public void friendly(String name) {
