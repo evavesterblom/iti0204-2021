@@ -49,8 +49,13 @@ public class AL07 {
 
     public Network memberOfNetwork(String name) {
         var parent = disjointSubsets.find(name);
-        if (parent.equals(name)) return Network.UNKNOWN;
 
-        return Network.valueOf(parent);
+        try {
+            return Network.valueOf(parent);
+        }
+        catch (IllegalArgumentException ex)
+        {
+            return Network.UNKNOWN;
+        }
     }
 }
