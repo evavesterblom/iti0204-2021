@@ -25,16 +25,14 @@ public class AL07 {
     }
 
     public void friendly(String name) {
-        // TODO
+        disjointSubsets.setNetwork(name, Network.FRIENDLY);
     }
 
     public void unfriendly(String name) {
-        // TODO
+        disjointSubsets.setNetwork(name, Network.UNFRIENDLY);
     }
 
     public Network memberOfNetwork(String name) {
-        // TODO
-        return null;
+        return disjointSubsets.getNetwork(name);
     }
-
 }
