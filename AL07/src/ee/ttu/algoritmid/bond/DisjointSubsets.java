@@ -39,6 +39,7 @@ public class DisjointSubsets {
             rank.put(rootOfElement2, rank.get(rootOfElement2) + 1);
         }
 
+        //network
         if (!network.containsKey(element1) && network.containsKey(rootOfElement1)) {
             network.put(element1, network.get(rootOfElement1));
         }
