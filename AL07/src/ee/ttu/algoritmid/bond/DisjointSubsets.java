@@ -58,6 +58,7 @@ public class DisjointSubsets {
         if(parent.containsKey(element)) throw new IllegalArgumentException("addSubset: element is already present");
         parent.put(element, element);
         rank.put(element, 0);
+        network.put(element, AL07.Network.UNKNOWN);
     }
 
     public AL07.Network getNetwork(String element){
