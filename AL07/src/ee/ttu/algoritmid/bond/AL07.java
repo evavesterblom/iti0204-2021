@@ -17,9 +17,15 @@ public class AL07 {
     }
 
     public void talkedToEachOther(String name1, String name2) {
-        Network network;
         if (memberOfNetwork(name1) == null && memberOfNetwork(name2) != null) addNetwork(name1, memberOfNetwork(name2));
         if (memberOfNetwork(name2) == null && memberOfNetwork(name1) != null) addNetwork(name2, memberOfNetwork(name1));
+
+        try {disjointSubsets.find(name1);}
+        catch (Exception e) {addPerson(name1);}
+
+        try {disjointSubsets.find(name2);}
+        catch (Exception e) {addPerson(name2);}
+
         disjointSubsets.union(name1, name2);
 
     }
