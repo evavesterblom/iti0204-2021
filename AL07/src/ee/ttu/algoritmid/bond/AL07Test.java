@@ -31,7 +31,11 @@ class AL07Test {
         AL07 solution = new AL07();
         solution.addPerson("U");
         solution.addPerson("V");
+        solution.addPerson("U2");
+        solution.addPerson("U3");
         solution.friendly("U");
+        solution.talkedToEachOther("U2", "U");
+        //solution.talkedToEachOther("V", "U");
         solution.talkedToEachOther("U", "V");
         var actual = solution.memberOfNetwork("V");
 

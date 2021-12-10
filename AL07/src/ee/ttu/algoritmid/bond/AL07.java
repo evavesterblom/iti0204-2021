@@ -23,8 +23,11 @@ public class AL07 {
         try {disjointSubsets.find(name2);}
         catch (Exception e) {addPerson(name2);}
 
-        disjointSubsets.union(name1, name2);
-
+        // Leia tyyp
+        // Unionit tehes eelistame seda, kellel on tyyp mitte unknown.
+        var name1Type = memberOfNetwork(name1);
+        if (name1Type == Network.UNKNOWN) disjointSubsets.union(name2, name1);
+        else disjointSubsets.union(name1, name2);
     }
 
     public void addPerson(String name) {
