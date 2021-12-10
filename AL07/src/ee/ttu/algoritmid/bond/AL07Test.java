@@ -30,8 +30,8 @@ class AL07Test {
     void testFriendlyPersonTalksToStranger_BecomesFriendly2(){
         AL07 solution = new AL07();
         solution.addPerson("U");
-        solution.friendly("U");
         solution.addPerson("V");
+        solution.friendly("U");
         solution.talkedToEachOther("U", "V");
         var actual = solution.memberOfNetwork("V");
 
