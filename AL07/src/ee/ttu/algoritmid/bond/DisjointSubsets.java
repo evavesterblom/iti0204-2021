@@ -29,14 +29,17 @@ public class DisjointSubsets {
 
         if (rank.get(rootOfElement1) > rank.get(rootOfElement2)){ //attach a smaller depth under the root of the bigger tree
             parent.put(rootOfElement2, rootOfElement1);
+            network.put(element2, network.get(rootOfElement1));
         }
         if (rank.get(rootOfElement1) < rank.get(rootOfElement2)){
             parent.put(rootOfElement1, rootOfElement2);
+            network.put(element1, network.get(rootOfElement2));
         }
         else
         {
             parent.put(rootOfElement1, rootOfElement2);
             rank.put(rootOfElement2, rank.get(rootOfElement2) + 1);
+            network.put(element2, network.get(rootOfElement1));
         }
 
         //network
