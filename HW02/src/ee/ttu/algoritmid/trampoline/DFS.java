@@ -44,6 +44,7 @@ public class DFS {
             if (found && childDistance > getDistance(end, distanceMap)) continue;
             if (point == end) {
                 found = true;
+                //savePathToGoal();
             }
 
             var children = getLandingPoints(point, map);
