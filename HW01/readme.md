@@ -1,25 +1,34 @@
 
-# Ülesanne Homework 1 -- W01
-Lennufirmal on vaja enne lende moodustada lennuekipaaže. Eksisteerib 3 tüüpi liikmeid: piloot, abipiloot ja stjuuard ning neist on vaja jooksvalt meeskond moodustada kohe kui võimalik. Teie ülesandeks on ehitada efektiivselt toimiv järjekorrasüsteem, mis registreerib üksikuid piloote, abipiloote ja stjuuardeid ning moodustab neist kohe meeskonna kui sobivad meeskonnaliikmed on järjekorrasüsteemis olemas. Teie süsteem peab võimaldama lennufirmal igal hetkel töötajate ootejärjekorda vaadata.
+# Homework 1 -- W01
+## Task
+An airline company needs to form flight crews before each flight. There are 3 types of members: pilot, co-pilot, and flight attendant, and teams need to be formed immediately as soon as suitable members are available. Your task is to build an efficient queue system that registers individual pilots, co-pilots, and flight attendants and immediately forms a team if suitable team members are present in the queue. Your system must allow the airline to view employee waiting queues at any time.
 
-Meeskondade tegemisel eksisteerivad järgmised piirangud: piloodi töökogemus peab olema 5-10 aastat suurem kui abipiloodil ning abipiloodi töökogemus peab olema vähemalt 3 aastat suurem kui stjuuardil. Uue töötaja lisandumisel järjekorda proovitakse temaga kohe meeskonda moodustada.
+The following restrictions apply when forming teams: the pilot's work experience must be 5-10 years greater than that of the co-pilot, and the co-pilot's work experience must be at least 3 years greater than that of the flight attendant. When a new employee is added to the queue, they will immediately be considered for team formation.
 
-Kui uus töötaja on piloot ning temaga saaks meeskonda moodustada mitu abipilooti, siis tuleb proovida seda teha ainult selle abipiloodiga, kellega piloodil on kõige väiksem töökogemuse vahe. Samamoodi kui uus töötaja on stjuuard ning temaga saaks meeskonda moodustada mitu abipilooti, siis tuleb proovida seda teha ainult selle abipiloodiga, kellega stjuuardil on kõige väiksem töökogemuse vahe. Kui uus töötaja on abipiloot ning temaga saaks meeskonda moodustada mitu pilooti või mitu stjuuardit, siis tuleb kummagi hulgast valida väikseima töökogemuse vahega töötaja.
+If the new employee is a pilot and several co-pilots could be on their team, only the co-pilot with the smallest work experience gap will be considered. Similarly, if the new employee is a flight attendant and several co-pilots could be on their team, only the co-pilot with the smallest work experience gap to the flight attendant will be considered. If the new employee is a co-pilot and can be on the team with several pilots or several flight attendants, the employee with the smallest work experience gap from each group must be selected.
 
-Kui selle protsessi järgi suudetakse meeskond moodustada, siis tuleb vastavad töötajad eemaldada järjekordadest ning kui ei õnnestu meeskonda moodustada, siis tuleb äsja saabunud töötaja lisada ootejärjekorda.
+If a team can be formed using this process, the corresponding employees will be removed from the queue, and if a team cannot be formed, the newly arrived employee will be added to the waiting queue.
 
-# Nõuded lahendusele
-Iga osalejat iseloomustab kolmik (```String name, Role role, double workExperience```) - Vt FlightCrewMember.java. Iga väärtus on kohustuslik (sh nimi ei ole tühi String) ja töökogemus on mittenegatiivne number (≥ 0).
-Meeskonna liikme registreerimiseks ja meeskonna leidmiseks kutsutakse välja registerToFlight(```FlightCrewMember participant```) meetod. Kui meeskonna liikme andmed ei vasta nõuetele, siis teda ei registreerita ja visatakse ```IllegalArgumentException```. Kui talle leitakse sobiv meeskond, siis kustutakse meeskonna liikmed ootejärjekorrast ja tagastatakse meeskonna andmed.
-Kui sobivat meeskonna liiget ei ole, lisatakse uus meeskonnaliige ootejärjekorda ja tagastatakse null. Vt ```FlightCrewRegistrationSystem.java``` ```registerToFlight(FlightCrewMember participant)``` ja ```FlightCrew.java```.
-NB! Järjekord peab vastu võtma ja tagastama samad ```FlightCrewMember``` objektid, mis tulevad testrist, st ```FlightCrewMember``` objektist ei tohi luua uut objekti oma implementatsiooniga.
-Meeskonna liikme registreerimise ja meeskonnae leidmise keerukus ei tohi olla suurem kui O(lg n), kus n on ootejärjekorras olevate liikmete arv ja see on implementeeritud binaarse otsingupuuna.
+## Requirements for the solution
+Each participant is characterized by a triplet (`String name`, `Role role`, `double workExperience`) - see FlightCrewMember.java. Each value is mandatory (including a non-empty name String) and work experience is a non-negative number (≥ 0).
 
-Binaarne otsingupuu tuleb ise implementeerida primitiivsete andmetüüpide baasil.
-Peab olema võimalik vaadata ootejärjekorda meetodiga ```crewMembersWithoutTeam()``` (vt ```FlightCrewRegistrationSystem.java```), mis tagastab kõik osalejad (piloodid, abipiloodid ja stjuuardid) töökogemuse kasvavas järjekorras. Kui järjekorras on erineva tüübi liikmed sama töökogemusega, siis esimesena tuleb stjuuard, järgmisena abipiloot ja viimasena piloot.
-Kood on mõistlikult kommenteeritud (meetodid ja erijuhtudel mõned read). Kood, kus on iga rida kommenteeritud, vastu ei võeta ja kaitsmisele ei lubata. Kui kood on kirjutatud CleanCode' järgi (arusaadav ja loetav) siis kommenteerimise vajadus ei teki.
-Otsingupuu implementeerida eraldi klassina. Otsingupuu funktsionaalsus peab olema piisavalt abstraaktne. Nt, ```findMatchingFlightAttendant(copilot)``` meetodi asemel võiks olla ```findElementLessAtLeastByK(k)```. Kõik lennumajanduse loogika peab olema eraldi.
-Soovitusi:
-Alguses on mõistlik ülesande enda lahenduse loogika testimiseks kasutada mõnd lihtsamat (suurema keerukusega operatsioonidega, näiteks sorteeritud ```ArrayList```) andmestruktuuri ja lisada otsingupuu, kui muu funktsionaalsus on korras.
+To register a team member and find a team, the registerToFlight(`FlightCrewMember participant`) method is called. If the team member's data does not meet the requirements, they will not be registered and an `IllegalArgumentException` will be thrown. If a suitable team is found for them, the team members are removed from the waiting list and the team's data is returned.
 
-Sisemiselt võib loogika lihtsustamiseks kasutada rohkem kui ühte andmestruktuuri (otsingupuud).
+If there is no suitable team member, a new team member is added to the waiting list and null is returned. See FlightCrewRegistrationSystem.java `registerToFlight(FlightCrewMember participant)` and `FlightCrew.java`.
+Note! The queue must accept and return the same `FlightCrewMember` objects that come from the test, i.e., a new object with your implementation must not be created from the `FlightCrewMember` object.
+The complexity of registering a team member and finding a team must not be greater than O(lg n), where n is the number of members in the waiting list, and it is implemented as a binary search tree.
+
+The binary search tree must be implemented using primitive data types.
+It must be possible to view the waiting list with the `crewMembersWithoutTeam()` method (see FlightCrewRegistrationSystem.java), which returns all participants (pilots, co-pilots, and flight attendants) in ascending order of work experience. 
+
+If members of different types have the same work experience in the list, the order should be flight attendant, followed by co-pilot, and finally pilot.
+The code is reasonably commented (methods and a few lines in special cases). 
+
+Code where every line is commented will not be accepted and will not be allowed for defense. If the code is written according to CleanCode (understandable and readable), there is no need for comments.
+Implement the binary search tree as a separate class.
+
+The functionality of the binary search tree must be sufficiently abstract. For example, instead of the `findMatchingFlightAttendant(copilot)` method, there could be `findElementLessAtLeastByK(k)`. All aviation logic must be separate.
+
+
+Recommendations:
+Initially, it is advisable to use a simpler data structure (with more complex operations, such as a sorted `ArrayList`) to test the solution's own logic and add the binary search tree when other functionality is in order.
