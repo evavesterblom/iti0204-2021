@@ -20,5 +20,9 @@ Practice of the course includes programming a solution to different tasks. A pro
 
 #### Course assignments
 - weekly smaller assignments on main topics
-- binary trees implementation homework in package HW01
-- HW2
+
+- binary trees implementation homework in package **HW01**
+https://github.com/evavesterblom/iti0204-2021/tree/main/HW01
+
+- searches: BFS, DFS in **HW02** 
+https://github.com/evavesterblom/iti0204-2021/blob/main/HW02/src/ee/ttu/algoritmid/trampoline/HW2_analyys_2021.pdf
