@@ -1,5 +1,5 @@
 
-# Ülesanne HW01
+# Ülesanne Homework 1 -- W01
 Lennufirmal on vaja enne lende moodustada lennuekipaaže. Eksisteerib 3 tüüpi liikmeid: piloot, abipiloot ja stjuuard ning neist on vaja jooksvalt meeskond moodustada kohe kui võimalik. Teie ülesandeks on ehitada efektiivselt toimiv järjekorrasüsteem, mis registreerib üksikuid piloote, abipiloote ja stjuuardeid ning moodustab neist kohe meeskonna kui sobivad meeskonnaliikmed on järjekorrasüsteemis olemas. Teie süsteem peab võimaldama lennufirmal igal hetkel töötajate ootejärjekorda vaadata.
 
 Meeskondade tegemisel eksisteerivad järgmised piirangud: piloodi töökogemus peab olema 5-10 aastat suurem kui abipiloodil ning abipiloodi töökogemus peab olema vähemalt 3 aastat suurem kui stjuuardil. Uue töötaja lisandumisel järjekorda proovitakse temaga kohe meeskonda moodustada.
