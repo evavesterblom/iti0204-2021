@@ -20,5 +20,5 @@ Practice of the course includes programming a solution to different tasks. A pro
 
 #### Course assignments
 - weekly smaller assignments on main topics
-- big assignment on trees HW1
+- binary trees implementation homework in package HW01
 - HW2
