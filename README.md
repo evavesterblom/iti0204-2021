@@ -2,13 +2,7 @@
 ### ITI0204
 
 #### Brief description of the course
-Classical data structures: 
-- queues, 
-- graphs, 
-- search trees, 
-- hash tables, 
-- heaps, 
-- their implementation and use in the algorithms. 
+Classical data structures: queues, graphs, search trees, hash tables, heaps, their implementation and use in the algorithms. 
 
 Sorting, data, graph, and text search algorithms. 
 
